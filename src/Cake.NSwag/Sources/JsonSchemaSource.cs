@@ -11,20 +11,22 @@ namespace Cake.NSwag.Sources
         {
         }
 
-        public void ToTypeScriptClient(FilePath outputFile)
+        public JsonSchemaSource ToTypeScriptClient(FilePath outputFile)
         {
             var schema = JsonSchema4.FromJson(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd());
             var generator = new NJsonSchema.CodeGeneration.TypeScript.TypeScriptGenerator(schema);
             var code = generator.GenerateFile();
             FileSystem.WriteContent(outputFile, code);
+            return this;
         }
 
-        public void ToCSharpClient(FilePath outputFile)
+        public JsonSchemaSource ToCSharpClient(FilePath outputFile)
         {
             var schema = JsonSchema4.FromJson(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd());
             var generator = new NJsonSchema.CodeGeneration.CSharp.CSharpGenerator(schema);
             var code = generator.GenerateFile();
             FileSystem.WriteContent(outputFile, code);
+            return this;
         }
     }
 }

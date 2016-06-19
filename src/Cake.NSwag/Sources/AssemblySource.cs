@@ -27,11 +27,7 @@ namespace Cake.NSwag.Sources
 
         private AssemblyMode Mode { get; set; }
 
-        private IFileSystem FileSystem { get; set; }
-
-        private ICakeEnvironment Environment { get; set; }
-
-        public void ToSwaggerDefinition(FilePath outputFile, SwaggerGeneratorSettings settings)
+        public AssemblySource ToSwaggerDefinition(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
             settings = settings ?? new SwaggerGeneratorSettings();
             if (Mode == AssemblyMode.Normal)
@@ -42,6 +38,7 @@ namespace Cake.NSwag.Sources
             {
                 GenerateWebApiSwagger(outputFile, settings);
             }
+            return this;
         }
 
         private void GenerateTypeSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
@@ -75,7 +72,7 @@ namespace Cake.NSwag.Sources
                     ? PropertyNameHandling.CamelCase
                     : PropertyNameHandling.Default,
                 NullHandling = NullHandling.Swagger,
-                ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray()
+                ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray(),
             };
             var gen = new WebApiAssemblyToSwaggerGenerator(genSettings);
             var service = gen.GenerateForControllers(gen.GetControllerClasses());
@@ -85,11 +82,12 @@ namespace Cake.NSwag.Sources
             }
         }
 
-        public void ToSwaggerDefinition(FilePath outputFile, Action<SwaggerGeneratorSettings> configure = null)
+        public AssemblySource ToSwaggerDefinition(FilePath outputFile, Action<SwaggerGeneratorSettings> configure = null)
         {
             var settings = new SwaggerGeneratorSettings();
             configure?.Invoke(settings);
             ToSwaggerDefinition(outputFile, settings);
+            return this;
         }
     }
 

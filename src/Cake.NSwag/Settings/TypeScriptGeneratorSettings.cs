@@ -12,24 +12,8 @@ namespace Cake.NSwag.Settings
         {
             
         }
-        public string ClassName { get; set; }
+
+        public string ClassName { get; set; } = "Client";
         public string ModuleName { get; set; }
-    }
-
-    public static class TypeScriptGeneratorSettingsExtensions
-    {
-        public static TypeScriptGeneratorSettings WithClassName(this TypeScriptGeneratorSettings settings,
-            string className)
-        {
-            settings.ClassName = className;
-            return settings;
-        }
-
-        public static TypeScriptGeneratorSettings WithModuleName(this TypeScriptGeneratorSettings settings,
-            string moduleName)
-        {
-            settings.ModuleName = moduleName;
-            return settings;
-        }
     }
 }

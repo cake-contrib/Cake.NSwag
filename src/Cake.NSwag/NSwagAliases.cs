@@ -12,9 +12,10 @@ namespace Cake.NSwag
     public static class NSwagAliases
     {
         [CakePropertyAlias]
+        [CakeNamespaceImport("Cake.NSwag.Settings")]
         public static NSwagRunner NSwag(this ICakeContext ctx)
         {
-            return new NSwagRunner(ctx.FileSystem, ctx.Environment);
+            return new NSwagRunner(ctx.FileSystem, ctx.Environment, ctx.Log);
         }
     }
 }

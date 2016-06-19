@@ -1,5 +1,6 @@
 ﻿using System;
 using Cake.Core;
+using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.NSwag.Settings;
 using NJsonSchema;
@@ -11,12 +12,15 @@ namespace Cake.NSwag.Sources
 {
     public class SwaggerSource : GenerationSource
     {
-        public SwaggerSource(FilePath sourceFilePath, ICakeEnvironment environment, IFileSystem fileSystem)
+        public SwaggerSource(FilePath sourceFilePath, ICakeEnvironment environment, IFileSystem fileSystem, ICakeLog log)
             : base(sourceFilePath, environment, fileSystem)
         {
+            Log = log;
         }
 
-        public void ToCSharpClient(FilePath outputFile, string fullClientPath, Action<CSharpGeneratorSettings> configure = null)
+        private ICakeLog Log { get; set; }
+
+        public SwaggerSource ToCSharpClient(FilePath outputFile, string fullClientPath, Action<CSharpGeneratorSettings> configure = null)
         {
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
@@ -38,26 +42,34 @@ namespace Cake.NSwag.Sources
             var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)), genSettings);
             var cs = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, cs);
+            return this;
         }
 
-        public void ToTypeScriptClient(FilePath outputFile, Action<TypeScriptGeneratorSettings> configure = null)
+        public SwaggerSource ToTypeScriptClient(FilePath outputFile, Action<TypeScriptGeneratorSettings> configure = null)
         {
             var settings = new TypeScriptGeneratorSettings();
             configure?.Invoke(settings);
             var genSettings = new SwaggerToTypeScriptClientGeneratorSettings
             {
                 ClassName = settings.ClassName,
-                TypeScriptGeneratorSettings = new NJsonSchema.CodeGeneration.TypeScript.TypeScriptGeneratorSettings()
-                {
-                    ModuleName = settings.ModuleName
-                }
+                PromiseType = PromiseType.Promise
             };
-            var gen = new SwaggerToTypeScriptClientGenerator(Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)), genSettings);
+            if (!string.IsNullOrWhiteSpace(settings.ModuleName))
+            {
+                genSettings.TypeScriptGeneratorSettings = new NJsonSchema.CodeGeneration.TypeScript.
+                    TypeScriptGeneratorSettings()
+                {
+                    ModuleName = settings.ModuleName,
+                };
+            }
+            var service = Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source));
+            var gen = new SwaggerToTypeScriptClientGenerator(service, genSettings);
             var ts = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, ts);
+            return this;
         }
 
-        public void ToWebApiController(FilePath outputFile, string classPath, Action<CSharpGeneratorSettings> configure = null)
+        public SwaggerSource ToWebApiController(FilePath outputFile, string classPath, Action<CSharpGeneratorSettings> configure = null)
         {
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
@@ -81,6 +93,7 @@ namespace Cake.NSwag.Sources
                     Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)), genSettings);
             var api = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, api);
+            return this;
         }
     }
 }

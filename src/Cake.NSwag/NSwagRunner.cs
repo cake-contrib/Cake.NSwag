@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Cake.Core;
+using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.NSwag.Sources;
 
@@ -8,12 +9,14 @@ namespace Cake.NSwag
 {
     public class NSwagRunner
     {
-        internal NSwagRunner(IFileSystem fileSystem, ICakeEnvironment environment)
+        internal NSwagRunner(IFileSystem fileSystem, ICakeEnvironment environment, ICakeLog log)
         {
             Environment = environment;
             FileSystem = fileSystem;
+            Log = log;
         }
 
+        private ICakeLog Log { get; set; }
         private ICakeEnvironment Environment { get; set; }
         private IFileSystem FileSystem { get; set; }
 
@@ -45,7 +48,7 @@ namespace Cake.NSwag
                 throw new FileNotFoundException($"Could not find file '{definitionFilePath}", nameof(definitionFilePath));
             }
 
-            return new SwaggerSource(definitionFilePath, Environment, FileSystem);
+            return new SwaggerSource(definitionFilePath, Environment, FileSystem, Log);
         }
 
         public JsonSchemaSource FromJsonSchema(FilePath definitionFilePath)
