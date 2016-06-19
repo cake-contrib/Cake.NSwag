@@ -100,6 +100,7 @@ Task("Post-Build")
 	var libDir = artifacts + "/lib/";
 	CreateDirectory(libDir);
 	CopyFiles(GetFiles("./src/Cake.NSwag/bin/" + configuration + "/*.dll"), libDir);
+	DeleteFile(libDir + "Cake.Core.dll");
 	//Package docs
 	Zip("./docfx/_site/", artifacts + "/docfx.zip");
 });
