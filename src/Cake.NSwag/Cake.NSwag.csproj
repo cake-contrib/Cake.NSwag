@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Cake.NSwag.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Cake.NSwag.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cake.Core, Version=0.13.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -74,8 +76,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\CSharpGeneratorSettings.cs" />
     <Compile Include="Settings\CSharpGeneratorSettingsExtensions.cs" />
+    <Compile Include="Settings\SwaggerGeneratorSettings.cs" />
     <Compile Include="Settings\TypeScriptGeneratorSettings.cs" />
     <Compile Include="Settings\TypeScriptGeneratorSettingsExtensions.cs" />
+    <Compile Include="Sources\AssemblyMode.cs" />
     <Compile Include="Sources\SwaggerSource.cs" />
     <Compile Include="Sources\AssemblySource.cs" />
     <Compile Include="Sources\GenerationSource.cs" />

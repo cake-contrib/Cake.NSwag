@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cake.Core.IO;
 
 namespace Cake.NSwag
@@ -32,8 +29,13 @@ namespace Cake.NSwag
         [DebuggerStepThrough]
         internal static KeyValuePair<string, string> SplitClassPath(this string s)
         {
-            var segments = s.Split('.');
-            return new KeyValuePair<string, string>(string.Join(".", segments.Take(segments.Length - 1)), segments.Last());
+            if (s.Contains("."))
+            {
+                var segments = s.Split('.');
+                return new KeyValuePair<string, string>(string.Join(".", segments.Take(segments.Length - 1)),
+                    segments.Last());
+            }
+            return new KeyValuePair<string, string>("Generated", s);
         }
     }
 }
