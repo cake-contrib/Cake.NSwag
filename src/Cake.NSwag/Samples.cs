@@ -17,6 +17,9 @@ namespace Cake.NSwag
             ctx.NSwag().FromJsonSchema("./schema.json").ToTypeScriptClient("./client.ts");
             ctx.NSwag().FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");
             ctx.NSwag().FromSwaggerSpec("./swagger.json").ToTypeScriptClient("./client.ts");
+            ctx.NSwag()
+                .FromSwaggerSpec("./swagger.json")
+                .ToWebApiController("./controller.cs", "Generated.Api.ValuesController");
         }
     }
 }

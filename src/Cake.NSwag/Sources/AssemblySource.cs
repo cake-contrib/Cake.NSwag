@@ -1,37 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Cake.Core;
 using Cake.Core.IO;
+using Cake.NSwag.Settings;
 using NJsonSchema;
 using NSwag.CodeGeneration.SwaggerGenerators;
 using NSwag.CodeGeneration.SwaggerGenerators.WebApi;
-using Path = Cake.Core.IO.Path;
 
 namespace Cake.NSwag.Sources
 {
-    public enum AssemblyMode
-    {
-        Normal,
-        WebApi
-    }
+    /// <summary>
+    ///     Represents a .NET assembly (conventional or Web API) to gather API metadata from.
+    /// </summary>
     public class AssemblySource : GenerationSource
     {
-        internal AssemblySource(FilePath assemblyPath, ICakeEnvironment environment, IFileSystem fileSystem, bool useWebApi) : base(assemblyPath)
+        internal AssemblySource(FilePath assemblyPath, ICakeEnvironment environment, IFileSystem fileSystem,
+            bool useWebApi)
+            : base(assemblyPath, environment, fileSystem)
         {
-            Environment = environment;
-            FileSystem = fileSystem;
             Mode = useWebApi ? AssemblyMode.WebApi : AssemblyMode.Normal;
         }
 
-        private AssemblyMode Mode { get; set; }
+        private AssemblyMode Mode { get; }
 
-        private IFileSystem FileSystem { get; set; }
-
-        private ICakeEnvironment Environment { get; set; }
-
-        public void ToSwaggerDefinition(FilePath outputFile, SwaggerGeneratorSettings settings)
+        /// <summary>
+        ///     Generates a Swagger (Open API) specification at the given path using the specified settings
+        /// </summary>
+        /// <param name="outputFile">File path for the generated API specification</param>
+        /// <param name="settings">Settings to further control the spec generation process</param>
+        /// <returns>The metadata source</returns>
+        /// <example>
+        ///     <code><![CDATA[NSwag.FromAssembly("./assembly.dll").ToSwaggerDefinition("./swagger.json");]]></code>
+        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./swagger.json");]]></code>
+        /// </example>
+        public AssemblySource ToSwaggerDefinition(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
             settings = settings ?? new SwaggerGeneratorSettings();
             if (Mode == AssemblyMode.Normal)
@@ -42,6 +45,7 @@ namespace Cake.NSwag.Sources
             {
                 GenerateWebApiSwagger(outputFile, settings);
             }
+            return this;
         }
 
         private void GenerateTypeSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
@@ -85,19 +89,21 @@ namespace Cake.NSwag.Sources
             }
         }
 
-        public void ToSwaggerDefinition(FilePath outputFile, Action<SwaggerGeneratorSettings> configure = null)
+        /// <summary>
+        ///     Generates a Swagger (Open API) specification at the given path using the specified settings
+        /// </summary>
+        /// <param name="outputFile">File path for the generated API specification</param>
+        /// <param name="configure">Optional settings to further control the specification</param>
+        /// <returns>The metadata source</returns>
+        /// <example>
+        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./api.json");]]></code>
+        /// </example>
+        public AssemblySource ToSwaggerDefinition(FilePath outputFile, Action<SwaggerGeneratorSettings> configure = null)
         {
             var settings = new SwaggerGeneratorSettings();
             configure?.Invoke(settings);
             ToSwaggerDefinition(outputFile, settings);
+            return this;
         }
-    }
-
-    public class SwaggerGeneratorSettings
-    {
-        public string DefaultUrlTemplate { get; set; } = "api/{controller}/{action}/{id}";
-        public bool EnumAsString { get; set; }
-        public bool CamelCaseProperties { get; set; }
-        public IEnumerable<Path> AssemblyPaths { get; set; }
     }
 }

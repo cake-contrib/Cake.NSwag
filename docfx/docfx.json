@@ -27,7 +27,18 @@
       },
       {
         "files": [
-          "doc/**.md"
+          "doc/**.md",
+          "doc/**/toc.yml"
+        ],
+        "exclude": [
+          "obj/**",
+          "_site/**"
+        ]
+      },
+      {
+        "files": [
+          "toc.yml",
+          "*.md"
         ],
         "exclude": [
           "obj/**",
