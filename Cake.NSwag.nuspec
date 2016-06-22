@@ -18,6 +18,6 @@
 	<files>
 		<file src="dist\lib\*.dll" target="lib\net45"/>
 		<!-- <file src="dist\build\Cake.NSwag\Cake.NSwag.dll" target="lib\net45"/> -->
-		<!-- <file src="dist\build\Cake.NSwag\Cake.NSwag.xml" target="lib\net45"/> -->
+		<file src="dist\build\Cake.NSwag\Cake.NSwag.xml" target="lib\net45"/>
 	</files>
 </package>
