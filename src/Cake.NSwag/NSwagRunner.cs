@@ -67,19 +67,19 @@ namespace Cake.NSwag
         /// <summary>
         ///     Parses a Swagger (Open API) specification for API metadata
         /// </summary>
-        /// <param name="definitionFilePath">Path to the JSON definition file</param>
+        /// <param name="specificationFilePath">Path to the JSON definition file</param>
         /// <returns>A metadata source for the given API spec</returns>
         /// <exception cref="ArgumentNullException">Thrown if the definition file is not provided</exception>
         /// <exception cref="FileNotFoundException">Thrown if the definition file is not found on the file system</exception>
-        public SwaggerSource FromSwaggerSpec(FilePath definitionFilePath)
+        public SwaggerSource FromSwaggerSpecification(FilePath specificationFilePath)
         {
-            if (definitionFilePath == null) throw new ArgumentNullException(nameof(definitionFilePath));
-            if (!FileSystem.Exist(definitionFilePath))
+            if (specificationFilePath == null) throw new ArgumentNullException(nameof(specificationFilePath));
+            if (!FileSystem.Exist(specificationFilePath))
             {
-                throw new FileNotFoundException($"Could not find file '{definitionFilePath}", nameof(definitionFilePath));
+                throw new FileNotFoundException($"Could not find file '{specificationFilePath}", nameof(specificationFilePath));
             }
 
-            return new SwaggerSource(definitionFilePath, Environment, FileSystem, Log);
+            return new SwaggerSource(specificationFilePath, Environment, FileSystem, Log);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Cake.NSwag
         /// </summary>
         /// <param name="definitionFilePath">Path to the JSON Schema file</param>
         /// <returns>A metadata source for the given schema</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <c>definitionFilePath</c> is null</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <c>specificationFilePath</c> is null</exception>
         /// <exception cref="FileNotFoundException">Thrown if the schema file is not found on the file system</exception>
         public JsonSchemaSource FromJsonSchema(FilePath definitionFilePath)
         {

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Cake.Core.IO;
 
 namespace Cake.NSwag.Settings
@@ -29,61 +28,21 @@ namespace Cake.NSwag.Settings
         /// <summary>
         ///     Additional assembly paths to search for references when generating metadata
         /// </summary>
-        public IEnumerable<Path> AssemblyPaths { get; set; }
-    }
-
-    /// <summary>
-    ///     Fluent extensions methods for the <see cref="SwaggerGeneratorSettings" /> class
-    /// </summary>
-    public static class SwaggerGeneratorSettingsExtensions
-    {
-        /// <summary>
-        ///     Sets the default URL template to be used when parsing routes
-        /// </summary>
-        /// <param name="settings">The settings</param>
-        /// <param name="template">The url template to use as default</param>
-        /// <returns>The updated settings object</returns>
-        public static SwaggerGeneratorSettings UseUrlTemplate(this SwaggerGeneratorSettings settings, string template)
-        {
-            settings.DefaultUrlTemplate = template;
-            return settings;
-        }
+        public IEnumerable<Path> AssemblyPaths { get; set; } = new List<Path>();
 
         /// <summary>
-        ///     Enables representing enums as strings in generated specifications
+        ///     Gets or sets the API title for the generated defintion
         /// </summary>
-        /// <param name="settings">The settings</param>
-        /// <returns>The updated settings object</returns>
-        public static SwaggerGeneratorSettings UseStringEnums(this SwaggerGeneratorSettings settings)
-        {
-            settings.EnumAsString = true;
-            return settings;
-        }
+        public string ApiTitle { get; set; }
 
         /// <summary>
-        ///     Enables representing enums as integers in generated specifications
+        ///     Gets or sets the API description for the generated specification
         /// </summary>
-        /// <param name="settings">The settings</param>
-        /// <returns>The updated settings object</returns>
-        public static SwaggerGeneratorSettings UseIntegerEnums(this SwaggerGeneratorSettings settings)
-        {
-            settings.EnumAsString = false;
-            return settings;
-        }
+        public string ApiDescription { get; set; }
 
         /// <summary>
-        ///     Adds the given assemblies to the srach paths to gather additional metadata from.
+        ///     Gets or sets the base path for the API specification
         /// </summary>
-        /// <param name="settings">The settings</param>
-        /// <param name="assemblyPaths">Assemblies to search for metadata.</param>
-        /// <returns>The updated settings object</returns>
-        public static SwaggerGeneratorSettings SearchAssemblies(this SwaggerGeneratorSettings settings,
-            params Path[] assemblyPaths)
-        {
-            var a = settings.AssemblyPaths as List<Path> ?? settings.AssemblyPaths.ToList();
-            a.AddRange(assemblyPaths.ToList());
-            settings.AssemblyPaths = a;
-            return settings;
-        }
+        public string BasePath { get; set; }
     }
 }
