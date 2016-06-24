@@ -57,8 +57,8 @@ namespace Cake.NSwag.Sources
         /// <param name="settings">Settings to further control the spec generation process</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromAssembly("./assembly.dll").ToSwaggerDefinition("./swagger.json");]]></code>
-        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./swagger.json");]]></code>
+        ///     <code><![CDATA[NSwag.FromAssembly("./assembly.dll").ToSwaggerSpecification("./swagger.json");]]></code>
+        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerSpecification("./swagger.json");]]></code>
         /// </example>
         public AssemblySource ToSwaggerSpecification(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
@@ -81,7 +81,7 @@ namespace Cake.NSwag.Sources
         /// <param name="configure">Optional settings to further control the specification</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./api.json");]]></code>
+        ///     <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerSpecification("./api.json");]]></code>
         /// </example>
         public AssemblySource ToSwaggerSpecification(FilePath outputFile, Action<SwaggerGeneratorSettings> configure = null)
         {

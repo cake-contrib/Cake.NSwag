@@ -39,7 +39,7 @@ namespace Cake.NSwag.Sources
         /// <param name="configure">Optional settings to further control the code generation process</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
+        ///     <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
         /// </example>
         public SwaggerSource ToCSharpClient(FilePath outputFile, string fullClientPath,
             Action<CSharpGeneratorSettings> configure = null)
@@ -75,7 +75,7 @@ namespace Cake.NSwag.Sources
         /// <param name="configure">Optional settings to further control the code generation process</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
+        ///     <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
         /// </example>
         public SwaggerSource ToTypeScriptClient(FilePath outputFile,
             Action<TypeScriptGeneratorSettings> configure = null)
@@ -112,7 +112,7 @@ namespace Cake.NSwag.Sources
         /// <example>
         ///     <code><![CDATA[
         /// NSwag
-        /// .FromSwaggerSpec("./swagger.json")
+        /// .FromSwaggerSpecification("./swagger.json")
         /// .ToWebApiController("./controller.cs", "Generated.Api.ValuesController")
         /// ]]></code>
         /// </example>

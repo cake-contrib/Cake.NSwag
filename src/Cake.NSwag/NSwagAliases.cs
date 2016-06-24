@@ -16,16 +16,16 @@ namespace Cake.NSwag
         /// <example>
         ///     <para> Generate a Swagger spec from a generic .NET assembly</para>
         ///     <code>
-        /// <![CDATA[ NSwag.FromAssembly("./assembly.dll").ToSwaggerDefinition("./typespec.json"); ]]>
+        /// <![CDATA[ NSwag.FromAssembly("./assembly.dll").ToSwaggerSpecification("./typespec.json"); ]]>
         /// </code>
         ///     <para>Generate a Swagger spec from an ASP.NET Web API assembly</para>
         ///     <code><![CDATA[
-        /// NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerDefinition("./swagger.json");
+        /// NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerSpecification("./swagger.json");
         /// ]]></code>
         ///     <para>Generate a Typescript client from a JSON Schema file</para>
         ///     <code><![CDATA[NSwag.FromJsonSchema("./schema.json").ToTypeScriptClient("./client.ts");]]></code>
         ///     <para>Generate a C# client from a Swagger specification</para>
-        ///     <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
+        ///     <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
         /// </example>
         [CakePropertyAlias]
         [CakeNamespaceImport("Cake.NSwag.Settings")]

@@ -17,7 +17,7 @@ The addin exposes a single property alias `NSwag` with all of the NSwag function
 The general process of using the alias is to get a source (a `GenerationSource` implementation) and then output it to any number of generated targets. So, generating a Swagger spec from a Web API assembly is simply:
 
 ```
-NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerDefinition("./swagger.json");
+NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerSpecification("./swagger.json");
 ```
 
 Or creating a TypeScript client from a JSON Schema:
@@ -30,7 +30,7 @@ The supported sources are:
 - .NET assembly (`FromAssembly()`)
 - ASP.NET Web API assembly (`FromWebApiAssembly()`)
 - JSON Schema (`FromJsonSchema()`)
-- Swagger specification (`FromSwaggerSpec()`)
+- Swagger specification (`FromSwaggerSpecification()`)
 
 Each source will have its own possible destinations that are covered in the documentation for those source types (see the *Reference* tab above).
 
