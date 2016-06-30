@@ -93,16 +93,13 @@ namespace Cake.NSwag.Sources
 
         private void GenerateTypeSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
-            var genSettings = new AssemblyTypeToSwaggerGeneratorSettings
-            {
-                AssemblyPath = Source.MakeAbsolute(Environment).FullPath,
-                DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer,
-                DefaultPropertyNameHandling = settings.CamelCaseProperties
-                    ? PropertyNameHandling.CamelCase
-                    : PropertyNameHandling.Default,
-                NullHandling = NullHandling.Swagger,
-                ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray()
-            };
+            var genSettings = settings.Settings.AssemblyTypeToSwaggerGeneratorSettings;
+            genSettings.AssemblyPath = Source.MakeAbsolute(Environment).FullPath;
+            genSettings.DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer;
+            genSettings.DefaultPropertyNameHandling = settings.CamelCaseProperties
+                ? PropertyNameHandling.CamelCase
+                : PropertyNameHandling.Default;
+            genSettings.ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray();
             var gen = new AssemblyTypeToSwaggerGenerator(genSettings);
             var service = gen.Generate(gen.GetClasses());
             using (var stream = new StreamWriter(FileSystem.GetFile(outputFile).OpenWrite()))
@@ -113,17 +110,15 @@ namespace Cake.NSwag.Sources
 
         private void GenerateWebApiSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
-            var genSettings = new WebApiAssemblyToSwaggerGeneratorSettings
-            {
-                AssemblyPath = Source.MakeAbsolute(Environment).FullPath,
-                DefaultUrlTemplate = settings.DefaultUrlTemplate,
-                DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer,
-                DefaultPropertyNameHandling = settings.CamelCaseProperties
-                    ? PropertyNameHandling.CamelCase
-                    : PropertyNameHandling.Default,
-                NullHandling = NullHandling.Swagger,
-                ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray()
-            };
+            var genSettings = settings.Settings.WebApiAssemblyToSwaggerGeneratorSettings;
+            genSettings.AssemblyPath = Source.MakeAbsolute(Environment).FullPath;
+            genSettings.DefaultUrlTemplate = settings.DefaultUrlTemplate;
+            genSettings.DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer;
+            genSettings.DefaultPropertyNameHandling = settings.CamelCaseProperties
+                ? PropertyNameHandling.CamelCase
+                : PropertyNameHandling.Default;
+            genSettings.NullHandling = NullHandling.Swagger;
+            genSettings.ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray();
             var gen = new WebApiAssemblyToSwaggerGenerator(genSettings);
             var service = gen.GenerateForControllers(gen.GetControllerClasses());
             service.BasePath = settings.BasePath ?? "";

@@ -6,7 +6,7 @@ namespace Cake.NSwag.Settings
     /// <summary>
     ///     Settings to control the creation of Swagger (Open API) specifications
     /// </summary>
-    public class SwaggerGeneratorSettings
+    public class SwaggerGeneratorSettings : GeneratorSettings
     {
         /// <summary>
         ///     Default URL template to be used when parsing routes

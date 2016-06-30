@@ -3,7 +3,7 @@
     /// <summary>
     ///     Settings to further control the generation of TypeScript code
     /// </summary>
-    public class TypeScriptGeneratorSettings
+    public class TypeScriptGeneratorSettings : GeneratorSettings
     {
         internal TypeScriptGeneratorSettings()
         {
