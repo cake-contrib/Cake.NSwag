@@ -77,6 +77,8 @@
     <Compile Include="Settings\CSharpGeneratorSettings.cs" />
     <Compile Include="Settings\CSharpGeneratorSettingsExtensions.cs" />
     <Compile Include="Settings\GeneratorSettings.cs" />
+    <Compile Include="Settings\SettingsContainer.cs" />
+    <Compile Include="Settings\SettingsFactory.cs" />
     <Compile Include="Settings\SwaggerGeneratorSettings.cs" />
     <Compile Include="Settings\SwaggerGeneratorSettingsExtensions.cs" />
     <Compile Include="Settings\TypeScriptGeneratorSettings.cs" />

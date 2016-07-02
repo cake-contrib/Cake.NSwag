@@ -1,8 +1,5 @@
-﻿using NJsonSchema;
-using NSwag.CodeGeneration.CodeGenerators.CSharp;
-using NSwag.CodeGeneration.CodeGenerators.TypeScript;
-using NSwag.CodeGeneration.SwaggerGenerators;
-using NSwag.CodeGeneration.SwaggerGenerators.WebApi;
+﻿using NJsonSchema.Generation;
+using NSwag.CodeGeneration.CodeGenerators;
 
 namespace Cake.NSwag.Settings
 {
@@ -13,118 +10,51 @@ namespace Cake.NSwag.Settings
     public abstract class GeneratorSettings
     {
         /// <summary>
-        /// Container for operation-specific settings
+        /// Container for operation-specific settings used when generating client libraries.
         /// </summary>
-        public SettingsContainer Settings { get; set; } = new SettingsContainer();
+        public ClientGeneratorBaseSettings ClientSettings { get; set; }
 
         /// <summary>
-        /// Specifies operation-specific settings for generating C# from Swagger specifications
+        /// Container for operation-specific settings used when generating controller code.
+        /// </summary>
+        public ControllerGeneratorBaseSettings ControllerSettings { get; set; }
+
+        /// <summary>
+        /// Container for operation-specific settings used when generating JSON schemas, including Swagger specifications.
+        /// </summary>
+        public JsonSchemaGeneratorSettings JsonSettings { get; set; }
+
+        /// <summary>
+        /// Specifies operation-specific settings for generating client code.
         /// </summary>
         /// <param name="settings">The NSwag settings to use</param>
         /// <returns>Updated settings object</returns>
-        public GeneratorSettings WithSettings(SwaggerToCSharpClientGeneratorSettings settings)
+        public GeneratorSettings WithSettings(ClientGeneratorBaseSettings settings)
         {
-            Settings.SwaggerToCSharpClientGeneratorSettings = settings;
+            ClientSettings = settings;
             return this;
         }
 
         /// <summary>
-        /// Specificies operation-specific settings for generating Web API controllers from Swagger specifications
+        /// Specifies operation-specific settings for generating JSON schemas, including Swagger specifications.
         /// </summary>
         /// <param name="settings">The NSwag settings to use</param>
         /// <returns>Updated settings object</returns>
-        public GeneratorSettings WithSettings(SwaggerToCSharpWebApiControllerGeneratorSettings settings)
+        public GeneratorSettings WithSettings(JsonSchemaGeneratorSettings settings)
         {
-            Settings.SwaggerToCSharpWebApiControllerGeneratorSettings = settings;
+            JsonSettings = settings;
             return this;
         }
 
         /// <summary>
-        /// Specifies operation-specific settings for generating TypeScript clients from Swagger specifications
+        /// Specificies operation-specific settings for generating controller code
         /// </summary>
         /// <param name="settings">The NSwag settings to use</param>
         /// <returns>Updated settings object</returns>
-        public GeneratorSettings WithSettings(SwaggerToTypeScriptClientGeneratorSettings settings)
+        public GeneratorSettings WithSettings(ControllerGeneratorBaseSettings settings)
         {
-            Settings.SwaggerToTypeScriptClientGeneratorSettings = settings;
+            ControllerSettings = settings;
             return this;
         }
-
-        /// <summary>
-        /// Specifies operation-specific settings for generating Swagger specifications from a Web API assembly
-        /// </summary>
-        /// <param name="settings">The NSwag settings to use</param>
-        /// <returns>Updated settings object</returns>
-        public GeneratorSettings WithSettings(WebApiAssemblyToSwaggerGeneratorSettings settings)
-        {
-            Settings.WebApiAssemblyToSwaggerGeneratorSettings = settings;
-            return this;
-        }
-
-        /// <summary>
-        /// Specifies operation-specific settings for generating Swagger specifications from a .NET assembly.
-        /// </summary>
-        /// <param name="settings">The NSwag settings to use</param>
-        /// <returns>Updated settings object</returns>
-        public GeneratorSettings WithSettings(AssemblyTypeToSwaggerGeneratorSettings settings)
-        {
-            Settings.AssemblyTypeToSwaggerGeneratorSettings = settings;
-            return this;
-        }
-    }
-
-    /// <summary>
-    /// Container class for NSwag's operation settings objects
-    /// </summary>
-    public class SettingsContainer
-    {
-        /// <summary>
-        /// Specifies operation-specific settings for generating C# from Swagger specifications
-        /// </summary>
-        public SwaggerToCSharpClientGeneratorSettings SwaggerToCSharpClientGeneratorSettings { get; set; } =
-            new SwaggerToCSharpClientGeneratorSettings
-            {
-                GenerateClientClasses = true,
-                CSharpGeneratorSettings =  new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
-                {
-                    ArrayType = "List",
-                    NullHandling = NullHandling.Swagger
-                }
-            };
-
-        /// <summary>
-        /// Specificies operation-specific settings for generating Web API controllers from Swagger specifications
-        /// </summary>
-        public SwaggerToCSharpWebApiControllerGeneratorSettings SwaggerToCSharpWebApiControllerGeneratorSettings { get;
-            set; } = new SwaggerToCSharpWebApiControllerGeneratorSettings
-            {
-                CSharpGeneratorSettings = new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
-                {
-                    ArrayType = "List",
-                    NullHandling = NullHandling.Swagger
-                }
-            };
-
-        /// <summary>
-        /// Specifies operation-specific settings for generating TypeScript clients from Swagger specifications
-        /// </summary>
-        public SwaggerToTypeScriptClientGeneratorSettings SwaggerToTypeScriptClientGeneratorSettings { get; set; } =
-            new SwaggerToTypeScriptClientGeneratorSettings
-            {
-                PromiseType = PromiseType.Promise,
-                TypeScriptGeneratorSettings = new NJsonSchema.CodeGeneration.TypeScript.TypeScriptGeneratorSettings()
-            };
-
-        /// <summary>
-        /// Specifies operation-specific settings for generating Swagger specifications from a Web API assembly
-        /// </summary>
-        public WebApiAssemblyToSwaggerGeneratorSettings WebApiAssemblyToSwaggerGeneratorSettings { get; set; } =
-            new WebApiAssemblyToSwaggerGeneratorSettings();
-
-        /// <summary>
-        /// Specifies operation-specific settings for generating Swagger specifications from a .NET assembly.
-        /// </summary>
-        public AssemblyTypeToSwaggerGeneratorSettings AssemblyTypeToSwaggerGeneratorSettings { get; set; } =
-            new AssemblyTypeToSwaggerGeneratorSettings {NullHandling = NullHandling.Swagger};
     }
 }

@@ -93,7 +93,8 @@ namespace Cake.NSwag.Sources
 
         private void GenerateTypeSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
-            var genSettings = settings.Settings.AssemblyTypeToSwaggerGeneratorSettings;
+            var genSettings = settings.JsonSettings as AssemblyTypeToSwaggerGeneratorSettings ??
+                              SettingsFactory.GetAssemblyToSwaggerSettings();
             genSettings.AssemblyPath = Source.MakeAbsolute(Environment).FullPath;
             genSettings.DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer;
             genSettings.DefaultPropertyNameHandling = settings.CamelCaseProperties
@@ -110,7 +111,8 @@ namespace Cake.NSwag.Sources
 
         private void GenerateWebApiSwagger(FilePath outputFile, SwaggerGeneratorSettings settings)
         {
-            var genSettings = settings.Settings.WebApiAssemblyToSwaggerGeneratorSettings;
+            var genSettings = settings.JsonSettings as WebApiAssemblyToSwaggerGeneratorSettings ??
+                SettingsFactory.GetWebApiToSwaggerSettings();
             genSettings.AssemblyPath = Source.MakeAbsolute(Environment).FullPath;
             genSettings.DefaultUrlTemplate = settings.DefaultUrlTemplate;
             genSettings.DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer;

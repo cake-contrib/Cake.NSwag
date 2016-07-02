@@ -47,7 +47,7 @@ namespace Cake.NSwag.Sources
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
             var @class = fullClientPath.SplitClassPath();
-            var genSettings = settings.Settings.SwaggerToCSharpClientGeneratorSettings;
+            var genSettings = settings.ClientSettings as SwaggerToCSharpClientGeneratorSettings ?? SettingsFactory.GetSwaggerToCSharpSettings();
             genSettings.ClassName = @class.Value;
             genSettings.CSharpGeneratorSettings.Namespace = @class.Key;
             genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();
@@ -74,7 +74,8 @@ namespace Cake.NSwag.Sources
         {
             var settings = new TypeScriptGeneratorSettings();
             configure?.Invoke(settings);
-            var genSettings = settings.Settings.SwaggerToTypeScriptClientGeneratorSettings;
+            var genSettings = settings.ClientSettings as SwaggerToTypeScriptClientGeneratorSettings ??
+                SettingsFactory.GetSwaggerToTypeScriptSettings();
             genSettings.ClassName = settings.ClassName;
             if (!string.IsNullOrWhiteSpace(settings.ModuleName))
             {
@@ -107,7 +108,8 @@ namespace Cake.NSwag.Sources
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
             var @class = classPath.SplitClassPath();
-            var genSettings = settings.Settings.SwaggerToCSharpWebApiControllerGeneratorSettings;
+            var genSettings = settings.ClientSettings as SwaggerToCSharpWebApiControllerGeneratorSettings ??
+                              SettingsFactory.GetSwaggerToControllerSettings();
             genSettings.ClassName = @class.Value;
             genSettings.CSharpGeneratorSettings.Namespace = @class.Key;
             genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();

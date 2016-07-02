@@ -28,7 +28,7 @@ namespace Cake.NSwag.Settings
         /// <summary>
         ///     Additional assembly paths to search for references when generating metadata
         /// </summary>
-        public IEnumerable<Path> AssemblyPaths { get; set; } = new List<Path>();
+        public IEnumerable<FilePath> AssemblyPaths { get; set; } = new List<FilePath>();
 
         /// <summary>
         ///     Gets or sets the API title for the generated defintion
