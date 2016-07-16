@@ -72,7 +72,7 @@ namespace Cake.NSwag.Sources
         {
             var genSettings = new WebApiAssemblyToSwaggerGeneratorSettings
             {
-                AssemblyPath = Source.MakeAbsolute(Environment).FullPath,
+                AssemblyPaths = new[] { Source.MakeAbsolute(Environment).FullPath },
                 DefaultUrlTemplate = settings.DefaultUrlTemplate,
                 DefaultEnumHandling = settings.EnumAsString ? EnumHandling.String : EnumHandling.Integer,
                 DefaultPropertyNameHandling = settings.CamelCaseProperties
