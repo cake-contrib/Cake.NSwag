@@ -1,5 +1,7 @@
 - name: Introduction
   href: intro.md
+- name: Settings
+  href: settings.md
 - name: Contributing
   href: contributing.md
 - name: NuGet Package

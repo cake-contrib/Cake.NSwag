@@ -39,7 +39,7 @@ namespace Cake.NSwag.Sources
         /// <param name="configure">Optional settings to further control the code generation process</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
+        ///     <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
         /// </example>
         public SwaggerSource ToCSharpClient(FilePath outputFile, string fullClientPath,
             Action<CSharpGeneratorSettings> configure = null)
@@ -47,20 +47,12 @@ namespace Cake.NSwag.Sources
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
             var @class = fullClientPath.SplitClassPath();
-            var genSettings = new SwaggerToCSharpClientGeneratorSettings
-            {
-                ClassName = @class.Value,
-                CSharpGeneratorSettings = new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
-                {
-                    Namespace = @class.Key,
-                    NullHandling = NullHandling.Swagger,
-                    ArrayType = "List"
-                },
-                AdditionalNamespaceUsages = settings.Namespaces.ToArray(),
-                ClientBaseClass = settings.BaseClass,
-                GenerateClientClasses = true,
-                GenerateClientInterfaces = settings.GenerateInterfaces
-            };
+            var genSettings = settings.ClientSettings as SwaggerToCSharpClientGeneratorSettings ?? SettingsFactory.GetSwaggerToCSharpSettings();
+            genSettings.ClassName = @class.Value;
+            genSettings.CSharpGeneratorSettings.Namespace = @class.Key;
+            genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();
+            genSettings.ClientBaseClass = settings.BaseClass;
+            genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
             var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)),
                 genSettings);
             var cs = gen.GenerateFile();
@@ -75,25 +67,19 @@ namespace Cake.NSwag.Sources
         /// <param name="configure">Optional settings to further control the code generation process</param>
         /// <returns>The metadata source</returns>
         /// <example>
-        ///     <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
+        ///     <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
         /// </example>
         public SwaggerSource ToTypeScriptClient(FilePath outputFile,
             Action<TypeScriptGeneratorSettings> configure = null)
         {
             var settings = new TypeScriptGeneratorSettings();
             configure?.Invoke(settings);
-            var genSettings = new SwaggerToTypeScriptClientGeneratorSettings
-            {
-                ClassName = settings.ClassName,
-                PromiseType = PromiseType.Promise
-            };
+            var genSettings = settings.ClientSettings as SwaggerToTypeScriptClientGeneratorSettings ??
+                SettingsFactory.GetSwaggerToTypeScriptSettings();
+            genSettings.ClassName = settings.ClassName;
             if (!string.IsNullOrWhiteSpace(settings.ModuleName))
             {
-                genSettings.TypeScriptGeneratorSettings = new NJsonSchema.CodeGeneration.TypeScript.
-                    TypeScriptGeneratorSettings
-                {
-                    ModuleName = settings.ModuleName
-                };
+                genSettings.TypeScriptGeneratorSettings.ModuleName = settings.ModuleName;
             }
             var service = Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source));
             var gen = new SwaggerToTypeScriptClientGenerator(service, genSettings);
@@ -112,7 +98,7 @@ namespace Cake.NSwag.Sources
         /// <example>
         ///     <code><![CDATA[
         /// NSwag
-        /// .FromSwaggerSpec("./swagger.json")
+        /// .FromSwaggerSpecification("./swagger.json")
         /// .ToWebApiController("./controller.cs", "Generated.Api.ValuesController")
         /// ]]></code>
         /// </example>
@@ -122,20 +108,14 @@ namespace Cake.NSwag.Sources
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
             var @class = classPath.SplitClassPath();
-            var genSettings = new SwaggerToCSharpWebApiControllerGeneratorSettings
-            {
-                ClassName = @class.Value,
-                CSharpGeneratorSettings = new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
-                {
-                    Namespace = @class.Key,
-                    NullHandling = NullHandling.Swagger,
-                    ArrayType = "List"
-                },
-                AdditionalNamespaceUsages = settings.Namespaces.ToArray(),
-                ControllerBaseClass = settings.BaseClass,
-                GenerateClientClasses = true,
-                GenerateClientInterfaces = settings.GenerateInterfaces
-            };
+            var genSettings = settings.ClientSettings as SwaggerToCSharpWebApiControllerGeneratorSettings ??
+                              SettingsFactory.GetSwaggerToControllerSettings();
+            genSettings.ClassName = @class.Value;
+            genSettings.CSharpGeneratorSettings.Namespace = @class.Key;
+            genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();
+            genSettings.ControllerBaseClass = settings.BaseClass;
+            genSettings.GenerateClientClasses = true;
+            genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
             var gen =
                 new SwaggerToCSharpWebApiControllerGenerator(
                     Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)), genSettings);

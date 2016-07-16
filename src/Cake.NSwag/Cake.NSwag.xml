@@ -17,16 +17,16 @@
             <example>
                 <para> Generate a Swagger spec from a generic .NET assembly</para>
                 <code>
-            <![CDATA[ NSwag.FromAssembly("./assembly.dll").ToSwaggerDefinition("./typespec.json"); ]]>
+            <![CDATA[ NSwag.FromAssembly("./assembly.dll").ToSwaggerSpecification("./typespec.json"); ]]>
             </code>
                 <para>Generate a Swagger spec from an ASP.NET Web API assembly</para>
                 <code><![CDATA[
-            NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerDefinition("./swagger.json");
+            NSwag.FromWebApiAssembly("./web.assembly.dll").ToSwaggerSpecification("./swagger.json");
             ]]></code>
                 <para>Generate a Typescript client from a JSON Schema file</para>
                 <code><![CDATA[NSwag.FromJsonSchema("./schema.json").ToTypeScriptClient("./client.ts");]]></code>
                 <para>Generate a C# client from a Swagger specification</para>
-                <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
+                <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
             </example>
         </member>
         <member name="T:Cake.NSwag.NSwagRunner">
@@ -54,11 +54,11 @@
             <exception cref="T:System.IO.FileNotFoundException">Thrown when the assembly could not be found on the file system</exception>
             <exception cref="T:System.ArgumentException">Thrown when the given path doesn't appear to be an assembly.</exception>
         </member>
-        <member name="M:Cake.NSwag.NSwagRunner.FromSwaggerSpec(Cake.Core.IO.FilePath)">
+        <member name="M:Cake.NSwag.NSwagRunner.FromSwaggerSpecification(Cake.Core.IO.FilePath)">
             <summary>
                 Parses a Swagger (Open API) specification for API metadata
             </summary>
-            <param name="definitionFilePath">Path to the JSON definition file</param>
+            <param name="specificationFilePath">Path to the JSON definition file</param>
             <returns>A metadata source for the given API spec</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if the definition file is not provided</exception>
             <exception cref="T:System.IO.FileNotFoundException">Thrown if the definition file is not found on the file system</exception>
@@ -69,7 +69,7 @@
             </summary>
             <param name="definitionFilePath">Path to the JSON Schema file</param>
             <returns>A metadata source for the given schema</returns>
-            <exception cref="T:System.ArgumentNullException">Thrown if <c>definitionFilePath</c> is null</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <c>specificationFilePath</c> is null</exception>
             <exception cref="T:System.IO.FileNotFoundException">Thrown if the schema file is not found on the file system</exception>
         </member>
         <member name="T:Cake.NSwag.Settings.CSharpGeneratorSettings">
@@ -120,6 +120,78 @@
             <param name="settings">The settings</param>
             <returns>The updated settings object</returns>
         </member>
+        <member name="T:Cake.NSwag.Settings.GeneratorSettings">
+            <summary>
+            Base class for other generator settings objects to derive from
+            </summary>
+            <remarks>Provides operation-specific settings</remarks>
+        </member>
+        <member name="P:Cake.NSwag.Settings.GeneratorSettings.ClientSettings">
+            <summary>
+            Container for operation-specific settings used when generating client libraries.
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.GeneratorSettings.ControllerSettings">
+            <summary>
+            Container for operation-specific settings used when generating controller code.
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.GeneratorSettings.JsonSettings">
+            <summary>
+            Container for operation-specific settings used when generating JSON schemas, including Swagger specifications.
+            </summary>
+        </member>
+        <member name="M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ClientGeneratorBaseSettings)">
+            <summary>
+            Specifies operation-specific settings for generating client code.
+            </summary>
+            <param name="settings">The NSwag settings to use</param>
+            <returns>Updated settings object</returns>
+        </member>
+        <member name="M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NJsonSchema.Generation.JsonSchemaGeneratorSettings)">
+            <summary>
+            Specifies operation-specific settings for generating JSON schemas, including Swagger specifications.
+            </summary>
+            <param name="settings">The NSwag settings to use</param>
+            <returns>Updated settings object</returns>
+        </member>
+        <member name="M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ControllerGeneratorBaseSettings)">
+            <summary>
+            Specificies operation-specific settings for generating controller code
+            </summary>
+            <param name="settings">The NSwag settings to use</param>
+            <returns>Updated settings object</returns>
+        </member>
+        <member name="T:Cake.NSwag.Settings.SettingsContainer">
+            <summary>
+            Container class for NSwag's operation settings objects
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SettingsContainer.SwaggerToCSharpClientGeneratorSettings">
+            <summary>
+            Specifies operation-specific settings for generating C# from Swagger specifications
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SettingsContainer.SwaggerToCSharpWebApiControllerGeneratorSettings">
+            <summary>
+            Specificies operation-specific settings for generating Web API controllers from Swagger specifications
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SettingsContainer.SwaggerToTypeScriptClientGeneratorSettings">
+            <summary>
+            Specifies operation-specific settings for generating TypeScript clients from Swagger specifications
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SettingsContainer.WebApiAssemblyToSwaggerGeneratorSettings">
+            <summary>
+            Specifies operation-specific settings for generating Swagger specifications from a Web API assembly
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SettingsContainer.AssemblyTypeToSwaggerGeneratorSettings">
+            <summary>
+            Specifies operation-specific settings for generating Swagger specifications from a .NET assembly.
+            </summary>
+        </member>
         <member name="T:Cake.NSwag.Settings.SwaggerGeneratorSettings">
             <summary>
                 Settings to control the creation of Swagger (Open API) specifications
@@ -145,6 +217,21 @@
         <member name="P:Cake.NSwag.Settings.SwaggerGeneratorSettings.AssemblyPaths">
             <summary>
                 Additional assembly paths to search for references when generating metadata
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiTitle">
+            <summary>
+                Gets or sets the API title for the generated defintion
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiDescription">
+            <summary>
+                Gets or sets the API description for the generated specification
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.SwaggerGeneratorSettings.BasePath">
+            <summary>
+                Gets or sets the base path for the API specification
             </summary>
         </member>
         <member name="T:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions">
@@ -174,12 +261,36 @@
             <param name="settings">The settings</param>
             <returns>The updated settings object</returns>
         </member>
-        <member name="M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.Path[])">
+        <member name="M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.FilePath[])">
             <summary>
                 Adds the given assemblies to the srach paths to gather additional metadata from.
             </summary>
             <param name="settings">The settings</param>
             <param name="assemblyPaths">Assemblies to search for metadata.</param>
+            <returns>The updated settings object</returns>
+        </member>
+        <member name="M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithTitle(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)">
+            <summary>
+                Sets the API title for the generated specification
+            </summary>
+            <param name="settings">The settings</param>
+            <param name="title">API title or name</param>
+            <returns>The updated settings object</returns>
+        </member>
+        <member name="M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithDescription(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)">
+            <summary>
+                Sets the API description for use in the generated specification
+            </summary>
+            <param name="settings">The settings</param>
+            <param name="description">Description to include with the generated API spec</param>
+            <returns>The updated settings object</returns>
+        </member>
+        <member name="M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseBasePath(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)">
+            <summary>
+                Sets the base path for use in the Swagger specification
+            </summary>
+            <param name="settings">The settings</param>
+            <param name="basePath">Base path to set in the generated specification</param>
             <returns>The updated settings object</returns>
         </member>
         <member name="T:Cake.NSwag.Settings.TypeScriptGeneratorSettings">
@@ -256,7 +367,7 @@
             <param name="configure">Optional settings to further control the code generation process</param>
             <returns>The metadata source</returns>
             <example>
-                <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
+                <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToCSharpClient("./client.cs", "Swagger.Client");]]></code>
             </example>
         </member>
         <member name="M:Cake.NSwag.Sources.SwaggerSource.ToTypeScriptClient(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.TypeScriptGeneratorSettings})">
@@ -267,7 +378,7 @@
             <param name="configure">Optional settings to further control the code generation process</param>
             <returns>The metadata source</returns>
             <example>
-                <code><![CDATA[NSwag.FromSwaggerSpec("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
+                <code><![CDATA[NSwag.FromSwaggerSpecification("./swagger.json").ToTypeScriptClient("./client.ts");]]></code>
             </example>
         </member>
         <member name="M:Cake.NSwag.Sources.SwaggerSource.ToWebApiController(Cake.Core.IO.FilePath,System.String,System.Action{Cake.NSwag.Settings.CSharpGeneratorSettings})">
@@ -281,7 +392,7 @@
             <example>
                 <code><![CDATA[
             NSwag
-            .FromSwaggerSpec("./swagger.json")
+            .FromSwaggerSpecification("./swagger.json")
             .ToWebApiController("./controller.cs", "Generated.Api.ValuesController")
             ]]></code>
             </example>
@@ -291,7 +402,7 @@
                 Represents a .NET assembly (conventional or Web API) to gather API metadata from.
             </summary>
         </member>
-        <member name="M:Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)">
+        <member name="M:Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)">
             <summary>
                 Generates a Swagger (Open API) specification at the given path using the specified settings
             </summary>
@@ -299,11 +410,11 @@
             <param name="settings">Settings to further control the spec generation process</param>
             <returns>The metadata source</returns>
             <example>
-                <code><![CDATA[NSwag.FromAssembly("./assembly.dll").ToSwaggerDefinition("./swagger.json");]]></code>
-                <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./swagger.json");]]></code>
+                <code><![CDATA[NSwag.FromAssembly("./assembly.dll").ToSwaggerSpecification("./swagger.json");]]></code>
+                <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerSpecification("./swagger.json");]]></code>
             </example>
         </member>
-        <member name="M:Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})">
+        <member name="M:Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})">
             <summary>
                 Generates a Swagger (Open API) specification at the given path using the specified settings
             </summary>
@@ -311,7 +422,7 @@
             <param name="configure">Optional settings to further control the specification</param>
             <returns>The metadata source</returns>
             <example>
-                <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerDefinition("./api.json");]]></code>
+                <code><![CDATA[NSwag.FromWebApiAssembly("./apicontroller.dll").ToSwaggerSpecification("./api.json");]]></code>
             </example>
         </member>
         <member name="T:Cake.NSwag.Sources.GenerationSource">
