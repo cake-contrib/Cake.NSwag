@@ -50,9 +50,9 @@ namespace Cake.NSwag.Settings
         /// <param name="assemblyPaths">Assemblies to search for metadata.</param>
         /// <returns>The updated settings object</returns>
         public static SwaggerGeneratorSettings SearchAssemblies(this SwaggerGeneratorSettings settings,
-            params Path[] assemblyPaths)
+            params FilePath[] assemblyPaths)
         {
-            var a = settings.AssemblyPaths as List<Path> ?? settings.AssemblyPaths.ToList();
+            var a = settings.AssemblyPaths as List<FilePath> ?? settings.AssemblyPaths.ToList();
             a.AddRange(assemblyPaths.ToList());
             settings.AssemblyPaths = a;
             return settings;

@@ -36,4 +36,4 @@ Each source will have its own possible destinations that are covered in the docu
 
 ## Settings
 
-Some targets allow for including a settings action to fine-tune the code generation process. This is highly specific to each generation target and you will need to check the documentation to confirm the available options.
+Some targets allow for including a settings action to fine-tune the code generation process. This is highly specific to each generation target and you will need to check the documentation to confirm the available options. For more detail check the [Settings](settings.md) page.

@@ -6,7 +6,7 @@ namespace Cake.NSwag.Settings
     /// <summary>
     ///     Settings to control the creation of Swagger (Open API) specifications
     /// </summary>
-    public class SwaggerGeneratorSettings
+    public class SwaggerGeneratorSettings : GeneratorSettings
     {
         /// <summary>
         ///     Default URL template to be used when parsing routes
@@ -28,7 +28,7 @@ namespace Cake.NSwag.Settings
         /// <summary>
         ///     Additional assembly paths to search for references when generating metadata
         /// </summary>
-        public IEnumerable<Path> AssemblyPaths { get; set; } = new List<Path>();
+        public IEnumerable<FilePath> AssemblyPaths { get; set; } = new List<FilePath>();
 
         /// <summary>
         ///     Gets or sets the API title for the generated defintion

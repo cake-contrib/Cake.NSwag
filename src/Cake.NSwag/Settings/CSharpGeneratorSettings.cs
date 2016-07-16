@@ -5,7 +5,7 @@ namespace Cake.NSwag.Settings
     /// <summary>
     ///     Settings to further control the C# generation process
     /// </summary>
-    public class CSharpGeneratorSettings
+    public class CSharpGeneratorSettings : GeneratorSettings
     {
         internal CSharpGeneratorSettings()
         {
