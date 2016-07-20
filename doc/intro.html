@@ -8,7 +8,7 @@
     <title>Getting Started </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Getting Started ">
-    <meta name="generator" content="docfx 2.0.1.0">
+    <meta name="generator" content="docfx 2.0.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -64,7 +64,7 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-              <a href="https://github.com/agc93/Cake.NSwag/blob/develop/docfx/doc/intro.md/#L1" class="btn btn-primary pull-right mobile-hide">Improve this Doc</a>
+              <a href="https://github.com/agc93/Cake.NSwag/blob/master/docfx/doc/intro.md/#L1" class="btn btn-primary pull-right mobile-hide">Improve this Doc</a>
               <h1 id="getting-started">Getting Started</h1>
               
 <p>The Cake addin ships with all of the NSwag libraries bundled in the package, so you shouldn&#39;t need to install anything first.</p>
@@ -74,7 +74,7 @@
 </code></pre><h2 id="usage">Usage</h2>
 <p>The addin exposes a single property alias <code>NSwag</code> with all of the NSwag functionality available as methods.</p>
 <p>The general process of using the alias is to get a source (a <code>GenerationSource</code> implementation) and then output it to any number of generated targets. So, generating a Swagger spec from a Web API assembly is simply:</p>
-<pre><code>NSwag.FromWebApiAssembly(&quot;./web.assembly.dll&quot;).ToSwaggerDefinition(&quot;./swagger.json&quot;);
+<pre><code>NSwag.FromWebApiAssembly(&quot;./web.assembly.dll&quot;).ToSwaggerSpecification(&quot;./swagger.json&quot;);
 </code></pre><p>Or creating a TypeScript client from a JSON Schema:</p>
 <pre><code>NSwag.FromJsonSchema(&quot;./schema.json&quot;).ToTypeScriptClient(&quot;./client.ts&quot;);
 </code></pre><p>The supported sources are:</p>
@@ -82,11 +82,11 @@
 <li>.NET assembly (<code>FromAssembly()</code>)</li>
 <li>ASP.NET Web API assembly (<code>FromWebApiAssembly()</code>)</li>
 <li>JSON Schema (<code>FromJsonSchema()</code>)</li>
-<li>Swagger specification (<code>FromSwaggerSpec()</code>)</li>
+<li>Swagger specification (<code>FromSwaggerSpecification()</code>)</li>
 </ul>
 <p>Each source will have its own possible destinations that are covered in the documentation for those source types (see the <em>Reference</em> tab above).</p>
 <h2 id="settings">Settings</h2>
-<p>Some targets allow for including a settings action to fine-tune the code generation process. This is highly specific to each generation target and you will need to check the documentation to confirm the available options.</p>
+<p>Some targets allow for including a settings action to fine-tune the code generation process. This is highly specific to each generation target and you will need to check the documentation to confirm the available options. For more detail check the <a href="settings.html">Settings</a> page.</p>
 
             </article>
           </div>

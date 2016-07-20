@@ -30,11 +30,11 @@ references:
   href: api/Cake.NSwag.NSwagRunner.html#Cake_NSwag_NSwagRunner_FromJsonSchema_Cake_Core_IO_FilePath_
   commentId: M:Cake.NSwag.NSwagRunner.FromJsonSchema(Cake.Core.IO.FilePath)
   fullName: Cake.NSwag.NSwagRunner.FromJsonSchema(Cake.Core.IO.FilePath)
-- uid: Cake.NSwag.NSwagRunner.FromSwaggerSpec(Cake.Core.IO.FilePath)
-  name: FromSwaggerSpec(FilePath)
-  href: api/Cake.NSwag.NSwagRunner.html#Cake_NSwag_NSwagRunner_FromSwaggerSpec_Cake_Core_IO_FilePath_
-  commentId: M:Cake.NSwag.NSwagRunner.FromSwaggerSpec(Cake.Core.IO.FilePath)
-  fullName: Cake.NSwag.NSwagRunner.FromSwaggerSpec(Cake.Core.IO.FilePath)
+- uid: Cake.NSwag.NSwagRunner.FromSwaggerSpecification(Cake.Core.IO.FilePath)
+  name: FromSwaggerSpecification(FilePath)
+  href: api/Cake.NSwag.NSwagRunner.html#Cake_NSwag_NSwagRunner_FromSwaggerSpecification_Cake_Core_IO_FilePath_
+  commentId: M:Cake.NSwag.NSwagRunner.FromSwaggerSpecification(Cake.Core.IO.FilePath)
+  fullName: Cake.NSwag.NSwagRunner.FromSwaggerSpecification(Cake.Core.IO.FilePath)
 - uid: Cake.NSwag.NSwagRunner.FromWebApiAssembly(Cake.Core.IO.FilePath)
   name: FromWebApiAssembly(FilePath)
   href: api/Cake.NSwag.NSwagRunner.html#Cake_NSwag_NSwagRunner_FromWebApiAssembly_Cake_Core_IO_FilePath_
@@ -85,16 +85,66 @@ references:
   href: api/Cake.NSwag.Settings.CSharpGeneratorSettingsExtensions.html#Cake_NSwag_Settings_CSharpGeneratorSettingsExtensions_SetBaseClass_Cake_NSwag_Settings_CSharpGeneratorSettings_System_String_
   commentId: M:Cake.NSwag.Settings.CSharpGeneratorSettingsExtensions.SetBaseClass(Cake.NSwag.Settings.CSharpGeneratorSettings,System.String)
   fullName: Cake.NSwag.Settings.CSharpGeneratorSettingsExtensions.SetBaseClass(Cake.NSwag.Settings.CSharpGeneratorSettings, System.String)
+- uid: Cake.NSwag.Settings.GeneratorSettings
+  name: GeneratorSettings
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings
+  commentId: T:Cake.NSwag.Settings.GeneratorSettings
+  fullName: Cake.NSwag.Settings.GeneratorSettings
+- uid: Cake.NSwag.Settings.GeneratorSettings.ClientSettings
+  name: ClientSettings
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_ClientSettings
+  commentId: P:Cake.NSwag.Settings.GeneratorSettings.ClientSettings
+  fullName: Cake.NSwag.Settings.GeneratorSettings.ClientSettings
+- uid: Cake.NSwag.Settings.GeneratorSettings.ControllerSettings
+  name: ControllerSettings
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_ControllerSettings
+  commentId: P:Cake.NSwag.Settings.GeneratorSettings.ControllerSettings
+  fullName: Cake.NSwag.Settings.GeneratorSettings.ControllerSettings
+- uid: Cake.NSwag.Settings.GeneratorSettings.JsonSettings
+  name: JsonSettings
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_JsonSettings
+  commentId: P:Cake.NSwag.Settings.GeneratorSettings.JsonSettings
+  fullName: Cake.NSwag.Settings.GeneratorSettings.JsonSettings
+- uid: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NJsonSchema.Generation.JsonSchemaGeneratorSettings)
+  name: WithSettings(JsonSchemaGeneratorSettings)
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_WithSettings_NJsonSchema_Generation_JsonSchemaGeneratorSettings_
+  commentId: M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NJsonSchema.Generation.JsonSchemaGeneratorSettings)
+  fullName: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NJsonSchema.Generation.JsonSchemaGeneratorSettings)
+- uid: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ClientGeneratorBaseSettings)
+  name: WithSettings(ClientGeneratorBaseSettings)
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_WithSettings_NSwag_CodeGeneration_CodeGenerators_ClientGeneratorBaseSettings_
+  commentId: M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ClientGeneratorBaseSettings)
+  fullName: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ClientGeneratorBaseSettings)
+- uid: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ControllerGeneratorBaseSettings)
+  name: WithSettings(ControllerGeneratorBaseSettings)
+  href: api/Cake.NSwag.Settings.GeneratorSettings.html#Cake_NSwag_Settings_GeneratorSettings_WithSettings_NSwag_CodeGeneration_CodeGenerators_ControllerGeneratorBaseSettings_
+  commentId: M:Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ControllerGeneratorBaseSettings)
+  fullName: Cake.NSwag.Settings.GeneratorSettings.WithSettings(NSwag.CodeGeneration.CodeGenerators.ControllerGeneratorBaseSettings)
 - uid: Cake.NSwag.Settings.SwaggerGeneratorSettings
   name: SwaggerGeneratorSettings
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings
   commentId: T:Cake.NSwag.Settings.SwaggerGeneratorSettings
   fullName: Cake.NSwag.Settings.SwaggerGeneratorSettings
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiDescription
+  name: ApiDescription
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings_ApiDescription
+  commentId: P:Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiDescription
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiDescription
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiTitle
+  name: ApiTitle
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings_ApiTitle
+  commentId: P:Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiTitle
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettings.ApiTitle
 - uid: Cake.NSwag.Settings.SwaggerGeneratorSettings.AssemblyPaths
   name: AssemblyPaths
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings_AssemblyPaths
   commentId: P:Cake.NSwag.Settings.SwaggerGeneratorSettings.AssemblyPaths
   fullName: Cake.NSwag.Settings.SwaggerGeneratorSettings.AssemblyPaths
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettings.BasePath
+  name: BasePath
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings_BasePath
+  commentId: P:Cake.NSwag.Settings.SwaggerGeneratorSettings.BasePath
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettings.BasePath
 - uid: Cake.NSwag.Settings.SwaggerGeneratorSettings.CamelCaseProperties
   name: CamelCaseProperties
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettings.html#Cake_NSwag_Settings_SwaggerGeneratorSettings_CamelCaseProperties
@@ -115,13 +165,18 @@ references:
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions
   commentId: T:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions
   fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions
-- uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.Path[])
-  name: SearchAssemblies(SwaggerGeneratorSettings, Path[])
-  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_SearchAssemblies_Cake_NSwag_Settings_SwaggerGeneratorSettings_Cake_Core_IO_Path___
-  commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.Path[])
-  name.vb: SearchAssemblies(SwaggerGeneratorSettings, Path())
-  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings, Cake.Core.IO.Path[])
-  fullName.vb: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings, Cake.Core.IO.Path())
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.FilePath[])
+  name: SearchAssemblies(SwaggerGeneratorSettings, FilePath[])
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_SearchAssemblies_Cake_NSwag_Settings_SwaggerGeneratorSettings_Cake_Core_IO_FilePath___
+  commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings,Cake.Core.IO.FilePath[])
+  name.vb: SearchAssemblies(SwaggerGeneratorSettings, FilePath())
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings, Cake.Core.IO.FilePath[])
+  fullName.vb: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.SearchAssemblies(Cake.NSwag.Settings.SwaggerGeneratorSettings, Cake.Core.IO.FilePath())
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseBasePath(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  name: UseBasePath(SwaggerGeneratorSettings, String)
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_UseBasePath_Cake_NSwag_Settings_SwaggerGeneratorSettings_System_String_
+  commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseBasePath(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseBasePath(Cake.NSwag.Settings.SwaggerGeneratorSettings, System.String)
 - uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseIntegerEnums(Cake.NSwag.Settings.SwaggerGeneratorSettings)
   name: UseIntegerEnums(SwaggerGeneratorSettings)
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_UseIntegerEnums_Cake_NSwag_Settings_SwaggerGeneratorSettings_
@@ -137,6 +192,16 @@ references:
   href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_UseUrlTemplate_Cake_NSwag_Settings_SwaggerGeneratorSettings_System_String_
   commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseUrlTemplate(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
   fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.UseUrlTemplate(Cake.NSwag.Settings.SwaggerGeneratorSettings, System.String)
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithDescription(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  name: WithDescription(SwaggerGeneratorSettings, String)
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_WithDescription_Cake_NSwag_Settings_SwaggerGeneratorSettings_System_String_
+  commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithDescription(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithDescription(Cake.NSwag.Settings.SwaggerGeneratorSettings, System.String)
+- uid: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithTitle(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  name: WithTitle(SwaggerGeneratorSettings, String)
+  href: api/Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.html#Cake_NSwag_Settings_SwaggerGeneratorSettingsExtensions_WithTitle_Cake_NSwag_Settings_SwaggerGeneratorSettings_System_String_
+  commentId: M:Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithTitle(Cake.NSwag.Settings.SwaggerGeneratorSettings,System.String)
+  fullName: Cake.NSwag.Settings.SwaggerGeneratorSettingsExtensions.WithTitle(Cake.NSwag.Settings.SwaggerGeneratorSettings, System.String)
 - uid: Cake.NSwag.Settings.TypeScriptGeneratorSettings
   name: TypeScriptGeneratorSettings
   href: api/Cake.NSwag.Settings.TypeScriptGeneratorSettings.html#Cake_NSwag_Settings_TypeScriptGeneratorSettings
@@ -172,38 +237,23 @@ references:
   href: api/Cake.NSwag.Sources.html#Cake_NSwag_Sources
   commentId: N:Cake.NSwag.Sources
   fullName: Cake.NSwag.Sources
-- uid: Cake.NSwag.Sources.AssemblyMode
-  name: AssemblyMode
-  href: api/Cake.NSwag.Sources.AssemblyMode.html#Cake_NSwag_Sources_AssemblyMode
-  commentId: T:Cake.NSwag.Sources.AssemblyMode
-  fullName: Cake.NSwag.Sources.AssemblyMode
-- uid: Cake.NSwag.Sources.AssemblyMode.Normal
-  name: Normal
-  href: api/Cake.NSwag.Sources.AssemblyMode.html#Cake_NSwag_Sources_AssemblyMode_Normal
-  commentId: F:Cake.NSwag.Sources.AssemblyMode.Normal
-  fullName: Cake.NSwag.Sources.AssemblyMode.Normal
-- uid: Cake.NSwag.Sources.AssemblyMode.WebApi
-  name: WebApi
-  href: api/Cake.NSwag.Sources.AssemblyMode.html#Cake_NSwag_Sources_AssemblyMode_WebApi
-  commentId: F:Cake.NSwag.Sources.AssemblyMode.WebApi
-  fullName: Cake.NSwag.Sources.AssemblyMode.WebApi
 - uid: Cake.NSwag.Sources.AssemblySource
   name: AssemblySource
   href: api/Cake.NSwag.Sources.AssemblySource.html#Cake_NSwag_Sources_AssemblySource
   commentId: T:Cake.NSwag.Sources.AssemblySource
   fullName: Cake.NSwag.Sources.AssemblySource
-- uid: Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)
-  name: ToSwaggerDefinition(FilePath, SwaggerGeneratorSettings)
-  href: api/Cake.NSwag.Sources.AssemblySource.html#Cake_NSwag_Sources_AssemblySource_ToSwaggerDefinition_Cake_Core_IO_FilePath_Cake_NSwag_Settings_SwaggerGeneratorSettings_
-  commentId: M:Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)
-  fullName: Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath, Cake.NSwag.Settings.SwaggerGeneratorSettings)
-- uid: Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})
-  name: ToSwaggerDefinition(FilePath, Action<SwaggerGeneratorSettings>)
-  href: api/Cake.NSwag.Sources.AssemblySource.html#Cake_NSwag_Sources_AssemblySource_ToSwaggerDefinition_Cake_Core_IO_FilePath_System_Action_Cake_NSwag_Settings_SwaggerGeneratorSettings__
-  commentId: M:Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})
-  name.vb: ToSwaggerDefinition(FilePath, Action(Of SwaggerGeneratorSettings))
-  fullName: Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath, System.Action<Cake.NSwag.Settings.SwaggerGeneratorSettings>)
-  fullName.vb: Cake.NSwag.Sources.AssemblySource.ToSwaggerDefinition(Cake.Core.IO.FilePath, System.Action(Of Cake.NSwag.Settings.SwaggerGeneratorSettings))
+- uid: Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)
+  name: ToSwaggerSpecification(FilePath, SwaggerGeneratorSettings)
+  href: api/Cake.NSwag.Sources.AssemblySource.html#Cake_NSwag_Sources_AssemblySource_ToSwaggerSpecification_Cake_Core_IO_FilePath_Cake_NSwag_Settings_SwaggerGeneratorSettings_
+  commentId: M:Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,Cake.NSwag.Settings.SwaggerGeneratorSettings)
+  fullName: Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath, Cake.NSwag.Settings.SwaggerGeneratorSettings)
+- uid: Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})
+  name: ToSwaggerSpecification(FilePath, Action<SwaggerGeneratorSettings>)
+  href: api/Cake.NSwag.Sources.AssemblySource.html#Cake_NSwag_Sources_AssemblySource_ToSwaggerSpecification_Cake_Core_IO_FilePath_System_Action_Cake_NSwag_Settings_SwaggerGeneratorSettings__
+  commentId: M:Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath,System.Action{Cake.NSwag.Settings.SwaggerGeneratorSettings})
+  name.vb: ToSwaggerSpecification(FilePath, Action(Of SwaggerGeneratorSettings))
+  fullName: Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath, System.Action<Cake.NSwag.Settings.SwaggerGeneratorSettings>)
+  fullName.vb: Cake.NSwag.Sources.AssemblySource.ToSwaggerSpecification(Cake.Core.IO.FilePath, System.Action(Of Cake.NSwag.Settings.SwaggerGeneratorSettings))
 - uid: Cake.NSwag.Sources.GenerationSource
   name: GenerationSource
   href: api/Cake.NSwag.Sources.GenerationSource.html#Cake_NSwag_Sources_GenerationSource
@@ -244,31 +294,6 @@ references:
   href: api/Cake.NSwag.Sources.JsonSchemaSource.html#Cake_NSwag_Sources_JsonSchemaSource_ToTypeScriptClient_Cake_Core_IO_FilePath_
   commentId: M:Cake.NSwag.Sources.JsonSchemaSource.ToTypeScriptClient(Cake.Core.IO.FilePath)
   fullName: Cake.NSwag.Sources.JsonSchemaSource.ToTypeScriptClient(Cake.Core.IO.FilePath)
-- uid: Cake.NSwag.Sources.SwaggerGeneratorSettings
-  name: SwaggerGeneratorSettings
-  href: api/Cake.NSwag.Sources.SwaggerGeneratorSettings.html#Cake_NSwag_Sources_SwaggerGeneratorSettings
-  commentId: T:Cake.NSwag.Sources.SwaggerGeneratorSettings
-  fullName: Cake.NSwag.Sources.SwaggerGeneratorSettings
-- uid: Cake.NSwag.Sources.SwaggerGeneratorSettings.AssemblyPaths
-  name: AssemblyPaths
-  href: api/Cake.NSwag.Sources.SwaggerGeneratorSettings.html#Cake_NSwag_Sources_SwaggerGeneratorSettings_AssemblyPaths
-  commentId: P:Cake.NSwag.Sources.SwaggerGeneratorSettings.AssemblyPaths
-  fullName: Cake.NSwag.Sources.SwaggerGeneratorSettings.AssemblyPaths
-- uid: Cake.NSwag.Sources.SwaggerGeneratorSettings.CamelCaseProperties
-  name: CamelCaseProperties
-  href: api/Cake.NSwag.Sources.SwaggerGeneratorSettings.html#Cake_NSwag_Sources_SwaggerGeneratorSettings_CamelCaseProperties
-  commentId: P:Cake.NSwag.Sources.SwaggerGeneratorSettings.CamelCaseProperties
-  fullName: Cake.NSwag.Sources.SwaggerGeneratorSettings.CamelCaseProperties
-- uid: Cake.NSwag.Sources.SwaggerGeneratorSettings.DefaultUrlTemplate
-  name: DefaultUrlTemplate
-  href: api/Cake.NSwag.Sources.SwaggerGeneratorSettings.html#Cake_NSwag_Sources_SwaggerGeneratorSettings_DefaultUrlTemplate
-  commentId: P:Cake.NSwag.Sources.SwaggerGeneratorSettings.DefaultUrlTemplate
-  fullName: Cake.NSwag.Sources.SwaggerGeneratorSettings.DefaultUrlTemplate
-- uid: Cake.NSwag.Sources.SwaggerGeneratorSettings.EnumAsString
-  name: EnumAsString
-  href: api/Cake.NSwag.Sources.SwaggerGeneratorSettings.html#Cake_NSwag_Sources_SwaggerGeneratorSettings_EnumAsString
-  commentId: P:Cake.NSwag.Sources.SwaggerGeneratorSettings.EnumAsString
-  fullName: Cake.NSwag.Sources.SwaggerGeneratorSettings.EnumAsString
 - uid: Cake.NSwag.Sources.SwaggerSource
   name: SwaggerSource
   href: api/Cake.NSwag.Sources.SwaggerSource.html#Cake_NSwag_Sources_SwaggerSource

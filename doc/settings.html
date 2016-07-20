@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>API documentation </title>
+    <title>Settings </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="API documentation ">
+    <meta name="title" content="Settings ">
     <meta name="generator" content="docfx 2.0.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -64,16 +64,42 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-              <a href="https://github.com/agc93/Cake.NSwag/blob/master/docfx/api/index.md/#L1" class="btn btn-primary pull-right mobile-hide">Improve this Doc</a>
-              <h1 id="api-documentation">API documentation</h1>
+              <a href="https://github.com/agc93/Cake.NSwag/blob/master/docfx/doc/settings.md/#L1" class="btn btn-primary pull-right mobile-hide">Improve this Doc</a>
+              <h1 id="settings">Settings</h1>
               
-<p>Use the links on the left to navigate the addin&#39;s API. </p>
-<p>The root namespace includes the runner and aliases for Cake scripts</p>
-<p>The <code>Settings</code> namespace includes the generator-specific settings to give more fine-tuned control over code and specification generation</p>
-<p>The <code>Sources</code> namespace includes the all-important metadata sources and what targets they can generate.</p>
-<blockquote><p>Raise any issues <a href="https://github.com/agc93/Cake.NSwag">on GitHub</a>, even against the documentation. </p>
-</blockquote>
-
+<p>This Cake addin includes a simplified object model for settings compared to the full NSwag settings model. This is in order to maintain the simplicity of your build scripts and expose the most commonly used settings directly, without requiring complex configuration. </p>
+<p>What does this look like in practice? </p>
+<pre><code>NSwag.FromWebApiAssembly(&quot;./web.assembly.dll&quot;).ToSwaggerSpecification(&quot;./swagger.json&quot;);
+// or using the basic settings 
+NSwag.FromWebApiAssembly(&quot;./web.assembly.dll&quot;).ToSwaggerSpecification(&quot;./swagger.json&quot;, s =&gt; s.EnableInterfaces());
+</code></pre><h2 id="fluent-interface">Fluent interface</h2>
+<p>The majority of the settings used by <code>Cake.NSwag</code> are available through a simple fluent API. </p>
+<pre><code>NSwag.FromWebApiAssembly(&quot;./apicontroller.dll&quot;)
+    .ToSwaggerSpecification(&quot;./api.json&quot;, s =&gt;
+        s.SearchAssemblies(&quot;./reference.dll&quot;)
+            .UseBasePath(&quot;api&quot;)
+            .UseStringEnums()
+            .WithTitle(&quot;Sample API&quot;));
+</code></pre><h2 id="using-nswag-settings">Using NSwag settings</h2>
+<p>NSwag itself includes a number of settings objects much more flexible and capable than <code>Cake.NSwag</code>&#39;s own. These can be included using the <code>WithSettings()</code> method from any of the generator settings. For example,</p>
+<pre><code>NSwag.FromSwaggerSpecification(&quot;./swagger.json&quot;)
+    .ToTypeScriptClient(&quot;./client.ts&quot;, s =&gt;
+        s.WithSettings(new SwaggerToTypeScriptClientGeneratorSettings
+        {
+            Template = TypeScriptTemplate.Angular2,
+            PromiseType = PromiseType.Promise
+        }));
+</code></pre><h2 id="all-settings">All settings</h2>
+<p>You can also mix and match these two settings to perform highly advanced code generation with a single call.</p>
+<pre><code>NSwag.FromSwaggerSpecification(&quot;./swagger.json&quot;)
+    .ToTypeScriptClient(&quot;./client.ts&quot;, s =&gt;
+        s.WithClassName(&quot;ApiClient&quot;)
+            .WithModuleName(&quot;SwaggerApi&quot;)
+            .WithSettings(new SwaggerToTypeScriptClientGeneratorSettings
+            {
+                PromiseType = PromiseType.Promise
+            }));
+</code></pre>
             </article>
           </div>
           
