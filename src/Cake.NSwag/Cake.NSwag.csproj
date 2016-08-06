@@ -32,32 +32,32 @@
     <DocumentationFile>Cake.NSwag.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cake.Core, Version=0.13.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cake.Core.0.13.0\lib\net45\Cake.Core.dll</HintPath>
+    <Reference Include="Cake.Core, Version=0.15.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cake.Core.0.15.2\lib\net45\Cake.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NJsonSchema, Version=2.59.6040.32732, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.2.59.6040.32732\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.dll</HintPath>
+    <Reference Include="NJsonSchema, Version=3.3.6061.16591, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.3.3.6061.16591\lib\net45\NJsonSchema.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NJsonSchema.CodeGeneration, Version=2.59.6040.32733, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
-      <HintPath>..\packages\NJsonSchema.CodeGeneration.2.59.6040.32733\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.dll</HintPath>
+    <Reference Include="NJsonSchema.CodeGeneration, Version=3.3.6061.16591, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.CodeGeneration.3.3.6061.16591\lib\portable45-net45+win8+wp8+wpa81\NJsonSchema.CodeGeneration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.AssemblyLoader, Version=3.26.6040.40945, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.AssemblyLoader.3.26.6040.40945\lib\net45\NSwag.AssemblyLoader.dll</HintPath>
+    <Reference Include="NSwag.AssemblyLoader, Version=4.2.6060.41613, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.AssemblyLoader.4.2.6060.41613\lib\net45\NSwag.AssemblyLoader.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.CodeGeneration, Version=3.26.6040.40945, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.CodeGeneration.3.26.6040.40945\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.dll</HintPath>
+    <Reference Include="NSwag.CodeGeneration, Version=4.2.6060.41613, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.CodeGeneration.4.2.6060.41613\lib\portable45-net45+win8+wp8+wpa81\NSwag.CodeGeneration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSwag.Core, Version=3.26.6040.40944, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
-      <HintPath>..\packages\NSwag.Core.3.26.6040.40944\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
+    <Reference Include="NSwag.Core, Version=4.2.6060.41613, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Core.4.2.6060.41613\lib\portable45-net45+win8+wp8+wpa81\NSwag.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -91,9 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
