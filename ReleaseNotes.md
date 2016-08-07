@@ -10,3 +10,8 @@
 # 0.2.0
 - Updated NSwag to 3.26
 - Added support for new NSwag settings class using `WithSettings()` overload 
+
+# 0.3.0
+- Update NSwag to 4.2.6060
+- Update NJsonSchema to 3.3.6061
+- Update Cake to 0.15.2
