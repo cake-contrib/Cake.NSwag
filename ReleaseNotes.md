@@ -15,3 +15,7 @@
 - Update NSwag to 4.2.6060
 - Update NJsonSchema to 3.3.6061
 - Update Cake to 0.15.2
+
+# 0.4.0
+- Update NSwag to 5.6.6095
+- Update NJsonSchema to 4.8.6094
