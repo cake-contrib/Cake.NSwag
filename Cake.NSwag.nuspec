@@ -4,7 +4,7 @@
 		<id>Cake.NSwag</id>
 		<title>Cake.NSwag</title>
 		<authors>Alistair Chapman</authors>
-		<owners>Alistair Chapman</owners>
+		<owners>Alistair Chapman, cake-contrib</owners>
 		<licenseUrl>https://raw.githubusercontent.com/agc93/Cake.NSwag/master/LICENSE</licenseUrl>
 		<projectUrl>https://github.com/agc93/Cake.NSwag/</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/NSwag/NSwag/master/assets/NuGetIcon.png</iconUrl>
