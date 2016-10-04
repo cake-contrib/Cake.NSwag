@@ -46,10 +46,10 @@ namespace Cake.NSwag.Sources
         {
             var settings = new CSharpGeneratorSettings();
             configure?.Invoke(settings);
-            var @class = fullClientPath.SplitClassPath();
             var genSettings = settings.ClientSettings as SwaggerToCSharpClientGeneratorSettings ?? SettingsFactory.GetSwaggerToCSharpSettings();
-            genSettings.ClassName = @class.Value;
-            genSettings.CSharpGeneratorSettings.Namespace = @class.Key;
+            var @class = fullClientPath.SplitClassPath();
+            genSettings.ClassName = !string.IsNullOrWhiteSpace(settings.ClassName) ? settings.ClassName : @class.Value;
+            genSettings.CSharpGeneratorSettings.Namespace = !string.IsNullOrWhiteSpace(settings.Namespace) ? settings.Namespace : @class.Key;
             genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();
             genSettings.ClientBaseClass = settings.BaseClass;
             genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;

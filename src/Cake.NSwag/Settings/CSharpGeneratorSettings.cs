@@ -25,5 +25,15 @@ namespace Cake.NSwag.Settings
         ///     Gets or sets a value indicating whether to generate interfaces for the client code.
         /// </summary>
         public bool GenerateInterfaces { get; set; }
+
+        /// <summary>
+        ///     Gets or sets a value indicating the class name for the generated client
+        /// </summary>
+        public string ClassName { get; set; }
+
+        /// <summary>
+        ///     Gets or sets a value indicating the namespace for the generated client code
+        /// </summary>
+        public string Namespace { get; set; }
     }
 }
