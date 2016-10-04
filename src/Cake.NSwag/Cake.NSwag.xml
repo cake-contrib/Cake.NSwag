@@ -92,6 +92,16 @@
                 Gets or sets a value indicating whether to generate interfaces for the client code.
             </summary>
         </member>
+        <member name="P:Cake.NSwag.Settings.CSharpGeneratorSettings.ClassName">
+            <summary>
+                Gets or sets a value indicating the class name for the generated client
+            </summary>
+        </member>
+        <member name="P:Cake.NSwag.Settings.CSharpGeneratorSettings.Namespace">
+            <summary>
+                Gets or sets a value indicating the namespace for the generated client code
+            </summary>
+        </member>
         <member name="T:Cake.NSwag.Settings.CSharpGeneratorSettingsExtensions">
             <summary>
                 Fluent extension methods for the <see cref="T:Cake.NSwag.Settings.CSharpGeneratorSettings" /> class.
