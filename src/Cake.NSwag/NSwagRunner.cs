@@ -56,7 +56,8 @@ namespace Cake.NSwag
             {
                 throw new FileNotFoundException($"Could not find file '{assemblyPath}", nameof(assemblyPath));
             }
-            if (assemblyPath.HasExtension && !assemblyPath.GetExtension().Contains("dll"))
+            // TODO: Maybe remove this check in future? .dll and .exe is hardly 100% reliable anymore.
+            if (assemblyPath.HasExtension && !assemblyPath.GetExtension().Contains("dll") && !assemblyPath.GetExtension().Contains("exe"))
             {
                 throw new ArgumentException($"The '{assemblyPath}' does not appear to be an assembly!",
                     nameof(assemblyPath));
