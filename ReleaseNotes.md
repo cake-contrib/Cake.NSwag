@@ -19,3 +19,10 @@
 # 0.4.0
 - Update NSwag to 5.6.6095
 - Update NJsonSchema to 4.8.6094
+
+# 0.5.0
+- Fix for incorrect assembly definition (support for .NET Core APIs)
+- Update Cake to 0.16.1
+- Update NJsonSchema to 4.26.6123
+- Update NSwag to v6.6.6124
+- NSwag has introduced a new dependency on the Owin and Microsoft.Owin packages
