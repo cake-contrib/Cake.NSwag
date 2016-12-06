@@ -172,7 +172,7 @@ Task("NuGet")
 			ReleaseNotes = versionNotes != null ? versionNotes.Notes.ToList() : new List<string>(),
 			OutputDirectory = artifacts + "/package",
             Files = content,
-            KeepTemporaryNuSpecFile = true
+            //KeepTemporaryNuSpecFile = true
 			});
 	});
 
