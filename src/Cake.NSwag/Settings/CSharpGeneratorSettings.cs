@@ -25,5 +25,10 @@ namespace Cake.NSwag.Settings
         ///     Gets or sets a value indicating whether to generate interfaces for the client code.
         /// </summary>
         public bool GenerateInterfaces { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the class name of the generated exception class
+        /// </summary>
+        public string ExceptionClass { get; set; }
     }
 }

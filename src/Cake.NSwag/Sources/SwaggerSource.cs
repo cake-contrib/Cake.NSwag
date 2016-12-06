@@ -53,7 +53,8 @@ namespace Cake.NSwag.Sources
             genSettings.AdditionalNamespaceUsages = settings.Namespaces.ToArray();
             genSettings.ClientBaseClass = settings.BaseClass;
             genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
-            var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)),
+            genSettings.ExceptionClass = settings.ExceptionClass;
+            var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source)),
                 genSettings);
             var cs = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, cs);
@@ -81,7 +82,7 @@ namespace Cake.NSwag.Sources
             {
                 genSettings.TypeScriptGeneratorSettings.ModuleName = settings.ModuleName;
             }
-            var service = Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source));
+            var service = Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source));
             var gen = new SwaggerToTypeScriptClientGenerator(service, genSettings);
             var ts = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, ts);
@@ -118,7 +119,7 @@ namespace Cake.NSwag.Sources
             genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
             var gen =
                 new SwaggerToCSharpWebApiControllerGenerator(
-                    Swag.SwaggerService.FromJson(FileSystem.ReadContent(Source)), genSettings);
+                    Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source)), genSettings);
             var api = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, api);
             return this;

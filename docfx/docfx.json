@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "src/**.sln"
+            "src/**.cs"
           ],
           "exclude": [
             "**/obj/**",
