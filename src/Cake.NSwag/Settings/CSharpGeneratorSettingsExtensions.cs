@@ -42,5 +42,17 @@ namespace Cake.NSwag.Settings
             settings.GenerateInterfaces = true;
             return settings;
         }
+
+        /// <summary>
+        ///     Sets the name of the generated exception class.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <param name="className">Name of the generated exception class.</param>
+        /// <returns></returns>
+        public static CSharpGeneratorSettings UseExceptionClass(this CSharpGeneratorSettings settings, string className)
+        {
+            settings.ExceptionClass = className;
+            return settings;
+        }
     }
 }

@@ -21,9 +21,12 @@ namespace Cake.NSwag.Sources
             : base(assemblyPath, environment, fileSystem)
         {
             Mode = useWebApi ? AssemblyMode.WebApi : AssemblyMode.Normal;
+            #if !NETCORE
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            #endif
         }
 
+#if !NETCORE
         private System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
@@ -47,6 +50,7 @@ namespace Cake.NSwag.Sources
                 return System.Reflection.Assembly.LoadFrom(File);
             }
         }
+#endif
 
         private AssemblyMode Mode { get; }
 
