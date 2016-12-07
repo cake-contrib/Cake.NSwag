@@ -80,14 +80,14 @@ if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
 }
 
 # Try find NuGet.exe in path if not exists
-if (!(Test-Path $NUGET_EXE)) {
+<# if (!(Test-Path $NUGET_EXE)) {
     Write-Verbose -Message "Trying to find nuget.exe in path..."
     ($NUGET_EXE_IN_PATH = &where.exe nuget.exe) | out-null
     if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH)) {
         "Found $($NUGET_EXE_IN_PATH)."
         $NUGET_EXE = $NUGET_EXE_IN_PATH 
     }
-}
+} #>
 
 # Try download NuGet.exe if not exists
 if (!(Test-Path $NUGET_EXE)) {
