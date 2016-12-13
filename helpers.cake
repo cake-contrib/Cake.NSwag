@@ -50,14 +50,14 @@ DependencyCollection GetDependencies() {
     return new DependencyCollection {
         Packages = new List<Package> {
             new Package("Newtonsoft.Json", "9.0.1", "netstandard1.0"),
-            new Package("NJsonSchema", "6.2.6179.20107", "netstandard1.0"),
-            new Package("NJsonSchema.CodeGeneration", "6.2.6179.20107", "netstandard1.0"),
-            new Package("NSwag.Annotations", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.CodeGeneration", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.Core", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.AssemblyLoaderCore", "7.7.0", "netstandard1.6"),
+            new Package("NJsonSchema", "6.5.6190.16910", "netstandard1.0"),
+            new Package("NJsonSchema.CodeGeneration", "6.5.6190.16910", "netstandard1.0"),
+            new Package("NSwag.Annotations", "8.0.6186.17340", "netstandard1.0"),
+            new Package("NSwag.CodeGeneration", "8.0.6186.17339", "netstandard1.0"),
+            new Package("NSwag.Core", "8.0.6186.17339", "netstandard1.0"),
+            new Package("NSwag.AssemblyLoaderCore", "8.0.0", "netstandard1.6"),
             new Package("NConsole", "3.3.6170.27019", "netstandard1.0"),
-            new Package("NSwag.Commands", "7.7.6173.30628", "netstandard1.0"),
+            new Package("NSwag.Commands", "8.0.6186.17340", "netstandard1.0"),
             new Package("System.Runtime.InteropServices.RuntimeInformation", "4.3.0", "netstandard1.1")
         },
         PackagesDirectory = "./src/packages"
