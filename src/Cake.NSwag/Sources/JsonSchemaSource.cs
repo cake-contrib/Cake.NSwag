@@ -2,6 +2,7 @@ using System.IO;
 using Cake.Core;
 using Cake.Core.IO;
 using NJsonSchema;
+using NJsonSchema.CodeGeneration;
 using NJsonSchema.CodeGeneration.CSharp;
 using NJsonSchema.CodeGeneration.TypeScript;
 
@@ -27,7 +28,7 @@ namespace Cake.NSwag.Sources
         /// </example>
         public JsonSchemaSource ToTypeScriptClient(FilePath outputFile)
         {
-            var schema = JsonSchema4.FromJson(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd());
+            var schema = JsonSchema4.FromJsonAsync(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd()).Result;
             var generator = new TypeScriptGenerator(schema);
             var code = generator.GenerateFile();
             FileSystem.WriteContent(outputFile, code);
@@ -44,7 +45,7 @@ namespace Cake.NSwag.Sources
         /// </example>
         public JsonSchemaSource ToCSharpClient(FilePath outputFile)
         {
-            var schema = JsonSchema4.FromJson(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd());
+            var schema = JsonSchema4.FromJsonAsync(new StreamReader(FileSystem.GetFile(Source).OpenRead()).ReadToEnd()).Result;
             var generator = new CSharpGenerator(schema);
             var code = generator.GenerateFile();
             FileSystem.WriteContent(outputFile, code);

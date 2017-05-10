@@ -1,5 +1,5 @@
 ﻿using NJsonSchema.Generation;
-using NSwag.CodeGeneration.CodeGenerators;
+using NSwag.CodeGeneration;
 
 namespace Cake.NSwag.Settings
 {

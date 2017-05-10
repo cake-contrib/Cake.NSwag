@@ -1,7 +1,7 @@
-using NSwag.CodeGeneration.CodeGenerators.CSharp;
-using NSwag.CodeGeneration.CodeGenerators.TypeScript;
-using NSwag.CodeGeneration.SwaggerGenerators;
-using NSwag.CodeGeneration.SwaggerGenerators.WebApi;
+using NSwag.CodeGeneration.CSharp;
+using NSwag.CodeGeneration.TypeScript;
+using NSwag.SwaggerGeneration;
+using NSwag.SwaggerGeneration.WebApi;
 
 namespace Cake.NSwag.Settings
 {

@@ -1,8 +1,8 @@
 using NJsonSchema;
-using NSwag.CodeGeneration.CodeGenerators.CSharp;
-using NSwag.CodeGeneration.CodeGenerators.TypeScript;
-using NSwag.CodeGeneration.SwaggerGenerators;
-using NSwag.CodeGeneration.SwaggerGenerators.WebApi;
+using NSwag.CodeGeneration.CSharp;
+using NSwag.CodeGeneration.TypeScript;
+using NSwag.SwaggerGeneration;
+using NSwag.SwaggerGeneration.WebApi;
 
 namespace Cake.NSwag.Settings
 {
@@ -15,10 +15,10 @@ namespace Cake.NSwag.Settings
         /// Specifies operation-specific settings for generating C# from Swagger specifications
         /// </summary>
         public SwaggerToCSharpClientGeneratorSettings SwaggerToCSharpClientGeneratorSettings { get; set; } =
-            new SwaggerToCSharpClientGeneratorSettings
+            new SwaggerToCSharpClientGeneratorSettings  
             {
                 GenerateClientClasses = true,
-                CSharpGeneratorSettings =  new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
+                CSharpGeneratorSettings =
                 {
                     ArrayType = "List",
                     NullHandling = NullHandling.Swagger
@@ -31,7 +31,7 @@ namespace Cake.NSwag.Settings
         public SwaggerToCSharpWebApiControllerGeneratorSettings SwaggerToCSharpWebApiControllerGeneratorSettings { get;
             set; } = new SwaggerToCSharpWebApiControllerGeneratorSettings
             {
-                CSharpGeneratorSettings = new NJsonSchema.CodeGeneration.CSharp.CSharpGeneratorSettings
+                CSharpGeneratorSettings =
                 {
                     ArrayType = "List",
                     NullHandling = NullHandling.Swagger
@@ -44,8 +44,7 @@ namespace Cake.NSwag.Settings
         public SwaggerToTypeScriptClientGeneratorSettings SwaggerToTypeScriptClientGeneratorSettings { get; set; } =
             new SwaggerToTypeScriptClientGeneratorSettings
             {
-                PromiseType = PromiseType.Promise,
-                TypeScriptGeneratorSettings = new NJsonSchema.CodeGeneration.TypeScript.TypeScriptGeneratorSettings()
+                PromiseType = PromiseType.Promise
             };
 
         /// <summary>

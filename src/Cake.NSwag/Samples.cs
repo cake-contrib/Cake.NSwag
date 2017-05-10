@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cake.Core;
 using Cake.NSwag.Settings;
-using NSwag.CodeGeneration.CodeGenerators.TypeScript;
+using NSwag.CodeGeneration.TypeScript;
 
 namespace Cake.NSwag
 {

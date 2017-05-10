@@ -3,9 +3,8 @@ using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.NSwag.Settings;
-using NJsonSchema;
-using NSwag.CodeGeneration.CodeGenerators.CSharp;
-using NSwag.CodeGeneration.CodeGenerators.TypeScript;
+using NSwag.CodeGeneration.CSharp;
+using NSwag.CodeGeneration.TypeScript;
 using Swag = NSwag;
 
 namespace Cake.NSwag.Sources
@@ -54,7 +53,7 @@ namespace Cake.NSwag.Sources
             genSettings.ClientBaseClass = settings.BaseClass;
             genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
             genSettings.ExceptionClass = settings.ExceptionClass;
-            var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source)),
+            var gen = new SwaggerToCSharpClientGenerator(Swag.SwaggerDocument.FromJsonAsync(FileSystem.ReadContent(Source)).Result,
                 genSettings);
             var cs = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, cs);
@@ -82,7 +81,7 @@ namespace Cake.NSwag.Sources
             {
                 genSettings.TypeScriptGeneratorSettings.ModuleName = settings.ModuleName;
             }
-            var service = Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source));
+            var service = Swag.SwaggerDocument.FromJsonAsync(FileSystem.ReadContent(Source)).Result;
             var gen = new SwaggerToTypeScriptClientGenerator(service, genSettings);
             var ts = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, ts);
@@ -119,7 +118,7 @@ namespace Cake.NSwag.Sources
             genSettings.GenerateClientInterfaces = settings.GenerateInterfaces;
             var gen =
                 new SwaggerToCSharpWebApiControllerGenerator(
-                    Swag.SwaggerDocument.FromJson(FileSystem.ReadContent(Source)), genSettings);
+                    Swag.SwaggerDocument.FromJsonAsync(FileSystem.ReadContent(Source)).Result, genSettings);
             var api = gen.GenerateFile();
             FileSystem.WriteContent(outputFile, api);
             return this;

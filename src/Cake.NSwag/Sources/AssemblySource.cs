@@ -6,8 +6,8 @@ using Cake.Core;
 using Cake.Core.IO;
 using Cake.NSwag.Settings;
 using NJsonSchema;
-using NSwag.CodeGeneration.SwaggerGenerators;
-using NSwag.CodeGeneration.SwaggerGenerators.WebApi;
+using NSwag.SwaggerGeneration;
+using NSwag.SwaggerGeneration.WebApi;
 
 namespace Cake.NSwag.Sources
 {
@@ -106,10 +106,10 @@ namespace Cake.NSwag.Sources
                 : PropertyNameHandling.Default;
             genSettings.ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray();
             var gen = new AssemblyTypeToSwaggerGenerator(genSettings);
-            var service = gen.Generate(gen.GetClasses());
+            var service = gen.GenerateAsync(gen.GetExportedClassNames());
             using (var stream = new StreamWriter(FileSystem.GetFile(outputFile).OpenWrite()))
             {
-                stream.WriteAsync(service.ToJson());
+                stream.WriteAsync(service.Result.ToJson());
             }
         }
 
@@ -126,7 +126,7 @@ namespace Cake.NSwag.Sources
             genSettings.NullHandling = NullHandling.Swagger;
             genSettings.ReferencePaths = settings.AssemblyPaths.Select(a => a.FullPath).ToArray();
             var gen = new WebApiAssemblyToSwaggerGenerator(genSettings);
-            var service = gen.GenerateForControllers(gen.GetControllerClasses());
+            var service = gen.GenerateForControllersAsync(gen.GetControllerClasses()).Result;
             service.BasePath = settings.BasePath ?? "";
             service.Info.Title = settings.ApiTitle ?? "";
             service.Info.Description = settings.ApiDescription ?? "";

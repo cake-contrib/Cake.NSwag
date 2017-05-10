@@ -25,6 +25,7 @@ var frameworks = GetFrameworks(framework);
 var testAssemblies = projects.Where(p => p.Name.Contains(".Tests")).Select(p => p.Path.GetDirectory() + "/bin/" + configuration + "/" + p.Name + ".dll");
 var artifacts = "./dist/";
 var testResultsPath = MakeAbsolute(Directory(artifacts + "./test-results"));
+var skipDependencies = true;
 GitVersion versionInfo = null;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,7 +73,7 @@ Task("Restore")
 	Information("Restoring solution...");
 	NuGetRestore(solutionPath);
     foreach(var project in projects) {
-        DotNetCoreRestore(project.Path.GetDirectory() + "/project.json");
+        DotNetCoreRestore(project.Path.FullPath);
     }
 });
 
@@ -100,12 +101,33 @@ Task("Generate-Docs").Does(() => {
 	Zip("./docfx/_site/", artifacts + "/docfx.zip");
 });
 
+Task("Publish")
+	.IsDependentOn("Build")
+	.IsDependentOn("Generate-Docs")
+	.Does(() =>
+{
+	CreateDirectory(artifacts + "lib");
+	var pubDir = artifacts + "lib/";
+	foreach (var project in projects) {
+		foreach (var f in frameworks) {
+			var frameworkDir = pubDir + f;
+			CreateDirectory(frameworkDir);
+			DotNetCorePublish(project.Path.FullPath, new DotNetCorePublishSettings {
+				Framework = f,
+				Configuration = configuration,
+				OutputDirectory = frameworkDir
+			});
+			if (FileExists(frameworkDir + "Cake.Core.dll")) DeleteFile(frameworkDir + "Cake.Core.dll");
+		}
+	}
+});
+
 Task("Post-Build")
 	.IsDependentOn("Build")
 	.IsDependentOn("Generate-Docs")
 	.Does(() =>
 {
-	CreateDirectory(artifacts + "build");
+	/* CreateDirectory(artifacts + "build");
 	var libDir = artifacts + "lib/";
     foreach (var f in frameworks) {
         var frameworkDir = libDir + f;
@@ -113,7 +135,7 @@ Task("Post-Build")
         CopyFiles(GetFiles("./src/Cake.NSwag/bin/" + configuration + "/" + f + "/*.dll"), frameworkDir);
 		CopyFiles(GetFiles("./src/Cake.NSwag/bin/" + configuration + "/" + f + "/*.xml"), frameworkDir);
         if (FileExists(frameworkDir + "Cake.Core.dll")) DeleteFile(frameworkDir + "Cake.Core.dll");
-    }
+    } */
 });
 
 Task("Copy-Core-Dependencies")
@@ -121,9 +143,14 @@ Task("Copy-Core-Dependencies")
 	.WithCriteria(() => frameworks.Any(f => f.Contains("netstandard")))
 	.Does(() => {
 		foreach (var f in frameworks.Where(f => f.Contains("netstandard"))) {
-			var deps = GetDependencies();
-			InstallDependencies(deps, "./src/packages");
-			CopyNetCoreDependencies(deps, artifacts + "lib/" + f);
+			var frameworkDir = artifacts + "lib/" + f;
+			CopyFiles(GetFiles(artifacts + "build/" + f + "/*.dll"), frameworkDir);
+			CopyFiles(GetFiles(artifacts + "build/" + f + "/*.xml"), frameworkDir);
+			/* if (!skipDependencies) {
+				var deps = GetDependencies();
+				InstallDependencies(deps, "./src/packages");
+				CopyNetCoreDependencies(deps, frameworkDir);
+			} */
 		}
 	});
 
@@ -156,23 +183,23 @@ Task("Run-Unit-Tests")
 });
 
 Task("NuGet")
-	.IsDependentOn("Post-Build")
-	.IsDependentOn("Copy-Core-Dependencies")
-	.IsDependentOn("Copy-Net45-Dependencies")
+	.IsDependentOn("Publish")
+	//.IsDependentOn("Copy-Core-Dependencies")
+	//.IsDependentOn("Copy-Net45-Dependencies")
 	.IsDependentOn("Run-Unit-Tests")
 	.Does(() => {
 		CreateDirectory(artifacts + "package/");
 		Information("Building NuGet package");
 		var nuspecFiles = GetFiles("./*.nuspec");
 		var versionNotes = ParseAllReleaseNotes("./ReleaseNotes.md").FirstOrDefault(v => v.Version.ToString() == versionInfo.MajorMinorPatch);
-        var content = GetContent(frameworks, artifacts + "build/");
+        var content = GetContent(frameworks, artifacts + "lib/");
 		NuGetPack(nuspecFiles, new NuGetPackSettings() {
 			BasePath = artifacts,
 			Version = versionInfo.NuGetVersionV2,
 			ReleaseNotes = versionNotes != null ? versionNotes.Notes.ToList() : new List<string>(),
 			OutputDirectory = artifacts + "/package",
             Files = content,
-            //KeepTemporaryNuSpecFile = true
+            KeepTemporaryNuSpecFile = true
 			});
 	});
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2D16CDB-257D-4835-A841-8B498EFC9AE9}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		commands.json = commands.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cake.NSwag", "Cake.NSwag\Cake.NSwag.xproj", "{911BDD18-8397-4E61-8FC9-92AA3BB5E9F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.NSwag", "Cake.NSwag\Cake.NSwag.csproj", "{911BDD18-8397-4E61-8FC9-92AA3BB5E9F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,8 +25,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{911BDD18-8397-4E61-8FC9-92AA3BB5E9F5} = {E2D16CDB-257D-4835-A841-8B498EFC9AE9}
 	EndGlobalSection
 EndGlobal

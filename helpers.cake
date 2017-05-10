@@ -3,10 +3,10 @@ IEnumerable<string> GetFrameworks(string s) {
 }
 
 List<NuSpecContent> GetContent(IEnumerable<string> frameworks, DirectoryPath libDir) {
-    return frameworks.SelectMany(f => new[] { 
-        //new NuSpecContent() { Source = "lib/" + f + "/*", Target = "lib/" + f, Exclude = "*.pdb"},
-        new NuSpecContent() { Source = "lib/" + f + "/**", Exclude = "*.pdb"},
-        //new NuSpecContent() { Source = artifacts + "lib/" + f + "/*.xml", Target = "lib/" + f}
+    return frameworks.SelectMany(f => {
+        return (GetFiles(libDir + "/" + f + "/*.dll") + GetFiles(libDir + "/" + f + "/*.xml"))
+            .Where(file => file.GetFilenameWithoutExtension().ToString() != "Cake.Core")
+            .Select(file => new NuSpecContent() { Source = file.ToString(), Target = "lib/" + f});
     })
     .Select(c => {
         //c.Source = c.Source.Trim('.', '/');
@@ -14,19 +14,6 @@ List<NuSpecContent> GetContent(IEnumerable<string> frameworks, DirectoryPath lib
     }).ToList();
 }
 
-void CopyNetCoreDependencies(DependencyCollection deps, DirectoryPath targetPath) {
-    foreach (var pkg in deps.Packages) {
-        var files = GetFiles(
-            deps.PackagesDirectory +
-            "/" +
-            pkg.Name + 
-            "*/lib/" +
-            pkg.Framework +
-            "/*.dll"
-        );
-        CopyFiles(files, targetPath);
-    }
-}
 
 
 public class DependencyCollection {
@@ -49,16 +36,7 @@ public class Package {
 DependencyCollection GetDependencies() {
     return new DependencyCollection {
         Packages = new List<Package> {
-            new Package("Newtonsoft.Json", "9.0.1", "netstandard1.0"),
-            new Package("NJsonSchema", "6.2.6179.20107", "netstandard1.0"),
-            new Package("NJsonSchema.CodeGeneration", "6.2.6179.20107", "netstandard1.0"),
-            new Package("NSwag.Annotations", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.CodeGeneration", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.Core", "7.7.6173.30628", "netstandard1.0"),
-            new Package("NSwag.AssemblyLoaderCore", "7.7.0", "netstandard1.6"),
-            new Package("NConsole", "3.3.6170.27019", "netstandard1.0"),
-            new Package("NSwag.Commands", "7.7.6173.30628", "netstandard1.0"),
-            new Package("System.Runtime.InteropServices.RuntimeInformation", "4.3.0", "netstandard1.1")
+            new Package("System.Runtime", "4.3.0", "net45")
         },
         PackagesDirectory = "./src/packages"
     };
@@ -67,9 +45,9 @@ DependencyCollection GetDependencies() {
 void InstallDependencies(DependencyCollection collection, DirectoryPath targetPath) {
     foreach (var pkg in collection.Packages) {
         NuGetInstall(pkg.Name, new NuGetInstallSettings {
-            ExcludeVersion  = true,
             Version = pkg.Version,
             OutputDirectory = targetPath,
+            NoCache = true,
             Source = new[] { "http://nuget.org/api/v2", "https://api.nuget.org/v3/index.json" }
             });
     }
