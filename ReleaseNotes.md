@@ -21,8 +21,8 @@
 - Update NJsonSchema to 4.8.6094
 
 # 0.5.0
-- Full (experimental) .NET Core support! Big thanks to @rsuter for the quick Core support in NSwag
+
 - Fix for incorrect assembly definition (support for .NET Core APIs)
-- Update Cake to 0.18.0
-- Update NJsonSchema to v8.9.6275
-- Update NSwag to v9.10.6277
+- Update Cake to 0.19.5
+- Update NJsonSchema to v8.34.6331
+- Update NSwag to v10.6.6324

@@ -21,36 +21,7 @@ namespace Cake.NSwag.Sources
             : base(assemblyPath, environment, fileSystem)
         {
             Mode = useWebApi ? AssemblyMode.WebApi : AssemblyMode.Normal;
-            #if !NETCORE
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            #endif
         }
-
-#if !NETCORE
-        private System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            try
-            {
-                Assembly assembly = System.Reflection.Assembly.Load(args.Name);
-                //if (assembly != null)
-                    return assembly;
-            }
-            catch
-            {
-                // ignore load error }
-
-                // *** Try to load by filename - split out the filename of the full assembly name
-                // *** and append the base path of the original assembly (ie. look in the same dir)
-                // *** NOTE: this doesn't account for special search paths but then that never
-                //           worked before either.
-                string[] Parts = args.Name.Split(',');
-                string File = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" +
-                              Parts[0].Trim() + ".dll";
-
-                return System.Reflection.Assembly.LoadFrom(File);
-            }
-        }
-#endif
 
         private AssemblyMode Mode { get; }
 

@@ -18,14 +18,10 @@ var framework = Argument<string>("framework", "net45,netstandard1.6");
 ///////////////////////////////////////////////////////////////////////////////
 
 var solutionPath = File("./src/Cake.NSwag.sln");
-var solution = ParseSolution(solutionPath);
-var projects = solution.Projects.Where(p => p.Type != "{2150E333-8FDC-42A3-9474-1A3956D46DE8}");
-var projectPaths = projects.Select(p => p.Path.GetDirectory());
-var frameworks = GetFrameworks(framework);
-var testAssemblies = projects.Where(p => p.Name.Contains(".Tests")).Select(p => p.Path.GetDirectory() + "/bin/" + configuration + "/" + p.Name + ".dll");
+var projects = GetProjects(solutionPath);
 var artifacts = "./dist/";
 var testResultsPath = MakeAbsolute(Directory(artifacts + "./test-results"));
-var skipDependencies = true;
+var frameworks = new List<string> { "net45" };
 GitVersion versionInfo = null;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -56,7 +52,7 @@ Task("Clean")
 	.Does(() =>
 {
 	// Clean solution directories.
-	foreach(var path in projectPaths)
+	foreach(var path in projects.AllProjectPaths)
 	{
 		Information("Cleaning {0}", path);
 		CleanDirectories(path + "/**/bin/" + configuration);
@@ -71,10 +67,10 @@ Task("Restore")
 {
 	// Restore all NuGet packages.
 	Information("Restoring solution...");
-	NuGetRestore(solutionPath);
-    foreach(var project in projects) {
-        DotNetCoreRestore(project.Path.FullPath);
-    }
+	//NuGetRestore(solutionPath);
+	foreach (var project in projects.AllProjectPaths) {
+		DotNetCoreRestore(project.FullPath);
+	}
 });
 
 Task("Build")
@@ -83,125 +79,88 @@ Task("Build")
 	.Does(() =>
 {
 	Information("Building solution...");
-    CreateDirectory(artifacts + "build/");
-    foreach(var project in projects) {
-        foreach(var f in frameworks) {
-            CreateDirectory(artifacts + "build/" + f);
-            DotNetCoreBuild(project.Path.GetDirectory().FullPath, new DotNetCoreBuildSettings {
-                Framework = f,
-                Configuration = configuration,
-                OutputDirectory = artifacts + "build/" + f
-            });
-        }
-    }
-});
-
-Task("Generate-Docs").Does(() => {
-	DocFx("./docfx/docfx.json");
-	Zip("./docfx/_site/", artifacts + "/docfx.zip");
-});
-
-Task("Publish")
-	.IsDependentOn("Build")
-	.IsDependentOn("Generate-Docs")
-	.Does(() =>
-{
-	CreateDirectory(artifacts + "lib");
-	var pubDir = artifacts + "lib/";
-	foreach (var project in projects) {
-		foreach (var f in frameworks) {
-			var frameworkDir = pubDir + f;
-			CreateDirectory(frameworkDir);
-			DotNetCorePublish(project.Path.FullPath, new DotNetCorePublishSettings {
-				Framework = f,
+	foreach(var framework in frameworks) {
+		foreach (var project in projects.SourceProjectPaths) {
+			var settings = new DotNetCoreBuildSettings {
+				Framework = framework,
 				Configuration = configuration,
-				OutputDirectory = frameworkDir
-			});
-			if (FileExists(frameworkDir + "Cake.Core.dll")) DeleteFile(frameworkDir + "Cake.Core.dll");
+				NoIncremental = true,
+			};
+			DotNetCoreBuild(project.FullPath, settings);
 		}
 	}
 });
 
+Task("Generate-Docs").Does(() => {
+	DocFxBuild("./docfx/docfx.json");
+	Zip("./docfx/_site/", artifacts + "/docfx.zip");
+});
+
 Task("Post-Build")
 	.IsDependentOn("Build")
+	.IsDependentOn("Run-Unit-Tests")
 	.IsDependentOn("Generate-Docs")
 	.Does(() =>
 {
-	/* CreateDirectory(artifacts + "build");
-	var libDir = artifacts + "lib/";
-    foreach (var f in frameworks) {
-        var frameworkDir = libDir + f;
-        CreateDirectory(frameworkDir);
-        CopyFiles(GetFiles("./src/Cake.NSwag/bin/" + configuration + "/" + f + "/*.dll"), frameworkDir);
-		CopyFiles(GetFiles("./src/Cake.NSwag/bin/" + configuration + "/" + f + "/*.xml"), frameworkDir);
-        if (FileExists(frameworkDir + "Cake.Core.dll")) DeleteFile(frameworkDir + "Cake.Core.dll");
-    } */
-});
-
-Task("Copy-Core-Dependencies")
-	.IsDependentOn("Post-Build")
-	.WithCriteria(() => frameworks.Any(f => f.Contains("netstandard")))
-	.Does(() => {
-		foreach (var f in frameworks.Where(f => f.Contains("netstandard"))) {
-			var frameworkDir = artifacts + "lib/" + f;
-			CopyFiles(GetFiles(artifacts + "build/" + f + "/*.dll"), frameworkDir);
-			CopyFiles(GetFiles(artifacts + "build/" + f + "/*.xml"), frameworkDir);
-			/* if (!skipDependencies) {
-				var deps = GetDependencies();
-				InstallDependencies(deps, "./src/packages");
-				CopyNetCoreDependencies(deps, frameworkDir);
-			} */
+	CreateDirectory(artifacts + "build");
+	CreateDirectory(artifacts + "modules");
+	foreach (var project in projects.SourceProjects) {
+		CreateDirectory(artifacts + "build/" + project.Name);
+		foreach (var framework in frameworks) {
+			var frameworkDir = artifacts + "build/" + project.Name + "/" + framework;
+			CreateDirectory(frameworkDir);
+			var files = GetFiles(project.Path.GetDirectory() + "/bin/" + configuration + "/" + framework + "/" + project.Name +".*");
+			CopyFiles(files, frameworkDir);
 		}
-	});
-
-Task("Copy-Net45-Dependencies")
-.IsDependentOn("Post-Build")
-.WithCriteria(() => frameworks.Any(f => f.Contains("net4")))
-.Does(() => {
-	foreach (var f in frameworks.Where(f => f.Contains("net4"))) {
-		var frameworkDir = artifacts + "lib/" + f;
-		CopyFiles(GetFiles(artifacts + "build/" + f + "/*.dll"), frameworkDir);
-		CopyFiles(GetFiles(artifacts + "build/" + f + "/*.xml"), frameworkDir);
-		if (FileExists(frameworkDir + "/Cake.Core.dll")) DeleteFile(frameworkDir + "/Cake.Core.dll");
 	}
 });
 
 Task("Run-Unit-Tests")
 	.IsDependentOn("Build")
-    .WithCriteria(() => testAssemblies.Any())
 	.Does(() =>
 {
     CreateDirectory(testResultsPath);
-    var settings = new XUnit2Settings {
-        NoAppDomain = true,
-        XmlReport = true,
-        HtmlReport = true,
-        OutputDirectory = testResultsPath,
-    };
-    settings.ExcludeTrait("Category", "Integration");
-    XUnit2(testAssemblies, settings);
+	if (projects.TestProjects.Any()) {
+
+		var settings = new DotNetCoreTestSettings {
+			Configuration = configuration
+		};
+
+		foreach(var project in projects.TestProjects) {
+			DotNetCoreTest(project.Path.FullPath, settings);
+		}
+	}
 });
 
 Task("NuGet")
-	.IsDependentOn("Publish")
-	//.IsDependentOn("Copy-Core-Dependencies")
-	//.IsDependentOn("Copy-Net45-Dependencies")
-	.IsDependentOn("Run-Unit-Tests")
-	.Does(() => {
-		CreateDirectory(artifacts + "package/");
-		Information("Building NuGet package");
-		var nuspecFiles = GetFiles("./*.nuspec");
-		var versionNotes = ParseAllReleaseNotes("./ReleaseNotes.md").FirstOrDefault(v => v.Version.ToString() == versionInfo.MajorMinorPatch);
-        var content = GetContent(frameworks, artifacts + "lib/");
-		NuGetPack(nuspecFiles, new NuGetPackSettings() {
-			BasePath = artifacts,
-			Version = versionInfo.NuGetVersionV2,
-			ReleaseNotes = versionNotes != null ? versionNotes.Notes.ToList() : new List<string>(),
-			OutputDirectory = artifacts + "/package",
-            Files = content,
-            KeepTemporaryNuSpecFile = true
-			});
-	});
+	.IsDependentOn("Post-Build")
+	.Does(() => 
+{
+	CreateDirectory(artifacts + "package");
+	Information("Building NuGet package");
+	var versionNotes = ParseAllReleaseNotes("./ReleaseNotes.md").FirstOrDefault(v => v.Version.ToString() == versionInfo.MajorMinorPatch);
+	var content = GetContent(frameworks, projects);
+	var settings = new NuGetPackSettings {
+		Id				= "Cake.NSwag",
+		Version			= versionInfo.NuGetVersionV2,
+		Title			= "Cake.NSwag",
+		Authors		 	= new[] { "Alistair Chapman" },
+		Owners			= new[] { "achapman", "cake-contrib" },
+		Description		= "A simple Cake addin powered by NSwag for compiling client code and API definitions from a variety of sources",
+		ReleaseNotes	= versionNotes != null ? versionNotes.Notes.ToList() : new List<string>(),
+		Summary			= "Add the NSwag toolchain to your Cake builds.",
+		ProjectUrl		= new Uri("https://github.com/agc93/Cake.NSwag"),
+		IconUrl			= new Uri("https://raw.githubusercontent.com/NSwag/NSwag/master/assets/NuGetIcon.png"),
+		LicenseUrl		= new Uri("https://raw.githubusercontent.com/agc93/Cake.NSwag/master/LICENSE"),
+		Copyright		= "Alistair Chapman 2017",
+		Tags			= new[] { "cake", "build", "script", "swagger", "api", "openapi" },
+		OutputDirectory = artifacts + "/package",
+		Files			= content,
+		//KeepTemporaryNuSpecFile = true
+	};
+
+	NuGetPack(settings);
+});
 
 ///////////////////////////////////////////////////////////////////////////////
 // TARGETS
