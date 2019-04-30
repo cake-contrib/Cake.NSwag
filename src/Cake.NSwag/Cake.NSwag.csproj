@@ -18,7 +18,7 @@
     <PackageReference Include="NSwag.Core" Version="10.6.6324.28497" />
     <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="10.6.6324.28500" />
     <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="10.6.6324.28500" />
-    <PackageReference Include="Cake.Core" Version="0.33.0" />
+    <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
     <PackageReference Include="NSwag.AssemblyLoader" Version="10.6.6324.28500" />
   </ItemGroup>
 
